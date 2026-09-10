@@ -1,0 +1,72 @@
+name: Docs test build (release/2.x)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'release/2.*'
+  pull_request:
+    branches:
+      - 'release/2.*'
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      is_minor_release: ${{ steps.check.outputs.is_minor_release }}
+    steps:
+      - id: check
+        run: |
+          target="${{ github.base_ref || github.ref_name }}"
+          # Only minor release branches (release/2.32) self-publish, not
+          # patch branches (release/2.32.1) - mirrors the real Jenkinsfile's
+          # branch_name.count(".") == 1 check.
+          dots=$(echo -n "$target" | tr -cd '.' | wc -c)
+          if [[ "$target" == release/2.* && "$dots" -eq 1 ]]; then
+            echo "is_minor_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_minor_release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Determine Conan branch
+        id: branches
+        run: |
+          target="${{ github.base_ref || github.ref_name }}"
+          # Conan doesn't have patch branches, only major.minor (e.g. release/2.32),
+          # so a docs patch branch like release/2.32.1 maps down to release/2.32.
+          conan_branch=$(echo "$target" | cut -d'.' -f1,2)
+          echo "conan_branch=$conan_branch" >> "$GITHUB_OUTPUT"
+
+      - name: Clone Conan sources for autodoc
+        run: git clone --single-branch -b "${{ steps.branches.outputs.conan_branch }}" --depth 1 https://github.com/conan-io/conan.git conan_sources
+
+      - name: Install Conan sources
+        run: |
+          pip install -e conan_sources
+          conan --version
+
+      - name: Build HTML
+        run: make html
+
+      - name: Build LaTeX sources
+        run: make latex
+
+  publish-own-branch:
+    needs: [check-branch, test]
+    if: github.event_name == 'push' && needs.check-branch.outputs.is_minor_release == 'true'
+    uses: conan-io/docs/.github/workflows/publish.yml@master
+    with:
+      branches: ${{ github.ref_name }}
+      pdf_branches: ${{ github.ref_name }}
+      publish: true
