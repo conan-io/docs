@@ -12,3 +12,4 @@ conan.tools.gnu
    gnu/makedeps
    gnu/pkgconfigdeps
    gnu/pkgconfig
+   gnu/mingw
