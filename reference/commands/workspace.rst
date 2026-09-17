@@ -221,6 +221,14 @@ only a subset of them with the ``conan workspace super-install --pkg=pkg_name1 -
 arguments. Only the subgraph of those packages, including their dependencies and transitive
 dependencies will be installed.
 
+.. note::
+
+   As the super-project only generates one shared set of dependency files, a dependency reachable
+   through different contexts or visibilities from different workspace packages can be ambiguous.
+   Since Conan 2.33, Conan prioritizes the ``host`` context and visible requirements to resolve it,
+   warning when it does so. See the :ref:`monolithic build tutorial<tutorial_workspaces_monolithic>`
+   for more details.
+
 
 .. _workspace_complete_command:
 

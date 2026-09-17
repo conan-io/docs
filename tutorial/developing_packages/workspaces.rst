@@ -199,6 +199,26 @@ the dependency graph, as they will be part of the super-project build. So there 
 a single generated ``conan_toolchain.cmake`` and a single common set of dependencies
 ``xxx-config.cmake`` files for all super-project external dependencies.
 
+.. note::
+
+    **Ambiguous dependencies**
+
+    Because there is only a single generated set of dependency files for the whole super-project,
+    monolithic builds do not support crossbuilding: a dependency can only be represented by one
+    single node, even if in a regular (non-workspace) graph it could legitimately appear more than
+    once, for example once in the ``host`` context and once in the ``build`` context (a
+    ``tool_requires``), or once as a private (``visible=False``) requirement and once as a public
+    one. Since Conan 2.33, when this ambiguity arises Conan resolves it with the following
+    priority, emitting a warning each time it does so:
+
+    - If the nodes belong to different contexts, the ``host`` context one is used.
+    - Otherwise, if the nodes have different visibility, the visible one is used.
+
+    If neither rule resolves the ambiguity, for example two unrelated editable packages that each
+    privately require a different version of a same-named dependency, no warning is emitted and the
+    resulting node is arbitrary. It is recommended that workspace packages built as a monolith stick
+    to a single context and avoid this kind of conflicting dependency.
+
 In the ``build_order(self, order)`` method above, the ``order`` argument is an ordered list of lists representing
 the topologically sorted order of building. The elements of the inner lists represent packages in the workspace,
 and are dictionaries with the reference ``ref`` (of type :ref:`RecipeReference<conan.api.model.RecipeReference>`) and the source folder ``folder`` of
