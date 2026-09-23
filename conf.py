@@ -147,7 +147,7 @@ exclude_patterns = ['_build', '**/site-packages', 'conan_sources/**.rst']
 #show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sas'
+pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
