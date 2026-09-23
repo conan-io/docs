@@ -10,3 +10,4 @@ Conan runners examples
 
    runners/docker/basic
    runners/docker/configfile_build_args
+   runners/ssh/basic
