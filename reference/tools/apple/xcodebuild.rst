@@ -33,6 +33,10 @@ Reference
 
 .. automethod:: XcodeBuild.build
 
+.. automethod:: XcodeBuild.build_workspace
+
+.. automethod:: XcodeBuild.discover_workspace_schemes
+
 The ``XcodeBuild.build()`` method internally implements a call to ``xcodebuild`` like:
 
 .. code:: bash

@@ -17,6 +17,7 @@ If you plan to use Conan in production in your project, team, or organization, t
    using_conancenter
    devops_local_recipes_index
    backup_sources/sources_backup
+   download_cache
    metadata
    versioning/versioning
    save_restore
