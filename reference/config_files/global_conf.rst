@@ -386,7 +386,24 @@ certificate (and the key) using the following configuration variables:
   The ``cacert_path`` Conan configuration is forwarded to the ``python-requests`` ``verify`` argument, see
   `Python-requests SSL certificates <https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification>`_.
   That means that if the ``REQUESTS_CA_BUNDLE`` environment variable is defined, it might be taken into account too.
-  
+
+* ``core.net.http:trust_store``: (Experimental) If ``True``, additionally verify HTTPS certificates against
+  the OS-native trust store (the certificate store managed by your operating system) using the
+  `truststore <https://pypi.org/project/truststore/>`_ package. It is used *together with*, not instead of,
+  the ``certifi`` CA bundle that Conan uses by default, so a certificate is accepted if it validates against
+  either one.
+
+  .. code-block:: text
+      :caption: **[CONAN_HOME]/global.conf**
+
+      core.net.http:trust_store=True
+
+  This requires Python >= 3.10, and it is not compatible with ``core.net.http:cacert_path``: Conan raises an
+  error if both are enabled at the same time, or if this conf is enabled with an older Python version. The
+  ``truststore`` package itself is installed automatically as a Conan dependency when installing Conan with
+  ``pip`` on Python >= 3.10; if it is missing (for example, when using other installation methods), Conan
+  raises an error indicating to run ``pip install truststore``.
+
 * ``core.net.http:client_cert``: Path or tuple of files containing a client certificate (and the key). See more details in
   `Python requests and Client Side Certificates <https://requests.readthedocs.io/en/latest/user/advanced/#client-side-certificates>`_
 
