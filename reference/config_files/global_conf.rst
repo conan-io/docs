@@ -401,8 +401,7 @@ certificate (and the key) using the following configuration variables:
   This requires Python >= 3.10, and it is not compatible with ``core.net.http:cacert_path``: Conan raises an
   error if both are enabled at the same time, or if this conf is enabled with an older Python version. The
   ``truststore`` package itself is installed automatically as a Conan dependency when installing Conan with
-  ``pip`` on Python >= 3.10; if it is missing (for example, when using other installation methods), Conan
-  raises an error indicating to run ``pip install truststore``.
+  ``pip`` on Python >= 3.10; if it is missing, Conan raises an error.
 
 * ``core.net.http:client_cert``: Path or tuple of files containing a client certificate (and the key). See more details in
   `Python requests and Client Side Certificates <https://requests.readthedocs.io/en/latest/user/advanced/#client-side-certificates>`_
