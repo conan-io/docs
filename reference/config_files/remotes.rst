@@ -39,6 +39,10 @@ The fields for each remote are:
   downloaded from this remote. If the list is empty or not present, all packages are allowed. Uses fnmatch rules.
 * ``recipes_only``: (Optional, ``bool`` value, ``false`` by default): If true, only recipes will be
   downloaded from this remote, no binaries will be downloaded.
+* ``force_auth``: (Optional, ``bool`` value, ``false`` by default): If true, Conan will not attempt
+  anonymous access to this remote, going directly for the authenticated credentials instead. This is
+  useful for remotes that do not allow anonymous access at all, to avoid an unnecessary failed
+  anonymous request before Conan falls back to asking for credentials.
 
 
 .. seealso::
