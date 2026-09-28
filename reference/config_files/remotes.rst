@@ -41,8 +41,8 @@ The fields for each remote are:
   downloaded from this remote, no binaries will be downloaded.
 * ``force_auth``: (Optional, ``bool`` value, ``false`` by default): If true, Conan will not attempt
   anonymous access to this remote, going directly for the authenticated credentials instead. This is
-  useful for remotes that do not allow anonymous access at all, to avoid an unnecessary failed
-  anonymous request before Conan falls back to asking for credentials.
+  useful to force authentication on remotes that might return a different response depending on the user 
+  (like hiding information for anonymous users).
 
 
 .. seealso::
