@@ -204,7 +204,8 @@ a single generated ``conan_toolchain.cmake`` and a single common set of dependen
     **Ambiguous dependencies**
 
     Because there is only a single generated set of dependency files for the whole super-project,
-    monolithic builds do not support crossbuilding: a dependency can only be represented by one
+    monolithic builds do not support crossbuilding when a dependency is present
+    both in the host and build context, because a dependency can only be represented by one
     single node, even if in a regular (non-workspace) graph it could legitimately appear more than
     once, for example once in the ``host`` context and once in the ``build`` context (a
     ``tool_requires``), or once as a private (``visible=False``) requirement and once as a public
