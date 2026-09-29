@@ -4,13 +4,13 @@ Changelog
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
 2.33.0 (29-Sept-2026)
---------------------
+---------------------
 
 - Feature: Allow ``cpp_info.sources``-only packages in CMakeConfigDeps. `#20297 <https://github.com/conan-io/conan/pull/20297>`_ . Docs `here <https://github.com/conan-io/docs/pull/4547>`__
 - Feature: `CMakeConfigDeps.get_cmake_file_name` returns a dict object instead of a string. `#20300 <https://github.com/conan-io/conan/pull/20300>`_
 - Feature: Support Clang 23. `#20330 <https://github.com/conan-io/conan/pull/20330>`_
 - Feature: Support Apple OS 27.0. `#20330 <https://github.com/conan-io/conan/pull/20330>`_
-- Feature: Feature: Add `copy_config_files` to the `[runner]` profile to copy extra host config files into Docker runners. `#20332 <https://github.com/conan-io/conan/pull/20332>`_ . Docs `here <https://github.com/conan-io/docs/pull/4549>`__
+- Feature: Add `copy_config_files` to the `[runner]` profile to copy extra host config files into Docker runners. `#20332 <https://github.com/conan-io/conan/pull/20332>`_ . Docs `here <https://github.com/conan-io/docs/pull/4549>`__
 - Feature: New remotes ``force_auth`` capability. `#20341 <https://github.com/conan-io/conan/pull/20341>`_ . Docs `here <https://github.com/conan-io/docs/pull/4550>`__
 - Feature: Add `core.net.http:trust_store` conf to verify HTTPS certs against the OS trust store. `#20343 <https://github.com/conan-io/conan/pull/20343>`_ . Docs `here <https://github.com/conan-io/docs/pull/4551>`__
 - Feature: Download recipe and package metadata in parallel with regular files instead of after them. `#20351 <https://github.com/conan-io/conan/pull/20351>`_
