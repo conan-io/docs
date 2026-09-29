@@ -151,6 +151,18 @@ This allows packages to provide source code as a dependency to consumers. The pa
 The source files will be added as `INTERFACE_SOURCES` property to the CMake library (or component) target and consumers that
 link with this target will compile the sources when building their own targets.
 
+.. note::
+
+    A package (or component) that only declares ``cpp_info.sources``, without any other field like ``includedirs`` or ``libs``,
+    will still get an ``INTERFACE`` CMake target created for it (since Conan 2.33). Previously, packages that exclusively
+    provided sources and nothing else were skipped, and no target was generated for them at all.
+
+``INTERFACE_SOURCES`` are only set on the target when the package declaring them is a **direct** dependency of the consumer
+for which the files are being generated (since Conan 2.33). If the package is only reachable transitively (for example,
+through another dependency using ``transitive_headers``/``transitive_libs``), its target can still be generated, but without
+the ``INTERFACE_SOURCES`` property, to avoid the same sources being unexpectedly compiled more than once through different
+paths of the dependency graph.
+
 
 .. _CMakeConfigDeps Properties:
 
