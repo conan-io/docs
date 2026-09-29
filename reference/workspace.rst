@@ -137,6 +137,16 @@ The ``conanws.py`` file can contain the definition of a ``ConanFile`` that repre
 is computed, all packages in the workspace are collapsed into a single node in the dependency graph, and that node will have dependencies
 to the other packages external to the workspace, that is, installed in the Conan cache.
 
+.. note::
+
+   Collapsing the workspace packages into a single node means that an external dependency can also
+   only be represented once in the super-build graph, even if it would otherwise appear as more
+   than one node, for example once in the ``host`` context and once in the ``build`` context, or
+   once as a private (``visible=False``) requirement and once as a public one. Since Conan 2.33,
+   Conan resolves this ambiguity by preferring, in order, the ``host`` context node and then the
+   visible node, warning when it does so. See :ref:`the monolithic build tutorial
+   <tutorial_workspaces_monolithic>` for more details.
+
 The ``ConanFile`` that represents the workspace super-build project is defined as:
 
 .. code-block:: python
