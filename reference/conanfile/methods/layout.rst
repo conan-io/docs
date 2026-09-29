@@ -39,8 +39,9 @@ self.folders
   **self.folders.root**.
 
 - **self.folders.subproject** (Defaulted to ``None``): Specifies a subfolder where the
-  ``conanfile.py`` is relative to the project root. This is particularly useful for
-  :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
+  project is contained relative to ``self.folders.root``. This is particularly useful for
+  :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`.
+  Most of the layout (e.g. source and build folder) is relocated inside this folder.
 
 - **self.folders.build_folder_vars** (Defaulted to ``None``): Use settings, options and/or
   ``self.name`` and ``self.version`` to produce a different build folder and different CMake presets names.
