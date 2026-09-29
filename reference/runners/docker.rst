@@ -23,6 +23,15 @@ To run Conan inside a Docker container, a ``[runner]`` section must be defined i
 - ``configfile`` **(optional, default: None)**: Absolute path to a configuration file with additional parameters (see **extra configuration** section for details).
 - ``build_context`` **(optional, default: None)**: Defines the Docker build context (see **extra configuration** section for details).
 - ``platform`` **(optional, default: None)**: Specifies the platform for building the container (e.g., ``linux/amd64``). This is particularly useful for Mac Silicon users.
+- ``copy_config_files`` **(optional, default: empty)**: Comma-separated list of `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns, relative to the Conan home folder, of extra host files/folders to copy into the container's Conan home, for the ``clean`` and ``copy`` cache modes. Disabled by default.
+
+  ..  code-block:: text
+
+      [runner]
+      type=docker
+      copy_config_files=extensions/*
+
+  A few files are never copied, even if a pattern matches them: the package cache storage folder, the sources backup cache, ``version.txt``, ``.local_recipes_index/*``, and the local remote-login database. ``credentials.json`` and ``source_credentials.json`` are also skipped by default for containing sensitive data, but are copied if their exact name is listed in ``copy_config_files``.
 
 ..  note::
 
