@@ -3,6 +3,38 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.33.0 (29-Sept-2026)
+---------------------
+
+- Feature: Allow ``cpp_info.sources``-only packages in CMakeConfigDeps. `#20297 <https://github.com/conan-io/conan/pull/20297>`_ . Docs `here <https://github.com/conan-io/docs/pull/4547>`__
+- Feature: `CMakeConfigDeps.get_cmake_file_name` returns a dict object instead of a string. `#20300 <https://github.com/conan-io/conan/pull/20300>`_
+- Feature: Support Clang 23. `#20330 <https://github.com/conan-io/conan/pull/20330>`_
+- Feature: Support Apple OS 27.0. `#20330 <https://github.com/conan-io/conan/pull/20330>`_
+- Feature: Add `copy_config_files` to the `[runner]` profile to copy extra host config files into Docker runners. `#20332 <https://github.com/conan-io/conan/pull/20332>`_ . Docs `here <https://github.com/conan-io/docs/pull/4549>`__
+- Feature: New remotes ``force_auth`` capability. `#20341 <https://github.com/conan-io/conan/pull/20341>`_ . Docs `here <https://github.com/conan-io/docs/pull/4550>`__
+- Feature: Add `core.net.http:trust_store` conf to verify HTTPS certs against the OS trust store. `#20343 <https://github.com/conan-io/conan/pull/20343>`_ . Docs `here <https://github.com/conan-io/docs/pull/4551>`__
+- Feature: Download recipe and package metadata in parallel with regular files instead of after them. `#20351 <https://github.com/conan-io/conan/pull/20351>`_
+- Feature: Use extra_info to provide CPEs to the component. `#20353 <https://github.com/conan-io/conan/pull/20353>`_
+- Feature: Support for CPS components configurations. `#20354 <https://github.com/conan-io/conan/pull/20354>`_
+- Fix: Do not inject a full lockfile due to ``export`` operations. `#19404 <https://github.com/conan-io/conan/pull/19404>`_
+- Fix: Implements the `find_package` verbosity level in CMakeConfigDeps. `#20275 <https://github.com/conan-io/conan/pull/20275>`_
+- Fix: Prioritize host and visible nodes in workspace monolithic builds when ambiguity arises. `#20305 <https://github.com/conan-io/conan/pull/20305>`_ . Docs `here <https://github.com/conan-io/docs/pull/4546>`__
+- Fix: Propagate errors from a `.bat` script called by another `.bat` script. `#20317 <https://github.com/conan-io/conan/pull/20317>`_
+- Fix: Avoid ``CMakeDeps`` generating empty generator expressions, improving performance. `#20322 <https://github.com/conan-io/conan/pull/20322>`_
+- Fix: Split skipped binaries summary per host/build/test group. `#20326 <https://github.com/conan-io/conan/pull/20326>`_
+- Fix: Only spawn ``min(threads, download_count)`` threads in parallel downloads. `#20335 <https://github.com/conan-io/conan/pull/20335>`_
+- Fix: Do not force ``DebuggerFlavor`` from generated prop files in MsBuildDeps, it's already the default. `#20340 <https://github.com/conan-io/conan/pull/20340>`_
+- Fix: Add support for ``CMakeConfigDeps`` for ``cpp_info.objects`` imported object libraries. `#20347 <https://github.com/conan-io/conan/pull/20347>`_
+- Fix: Error messages inside the `source()`, `generate()` and `package()` steps missing the package reference. `#20348 <https://github.com/conan-io/conan/pull/20348>`_
+- Fix: Remove support for Python 3.7, EOL since 2024. `#20357 <https://github.com/conan-io/conan/pull/20357>`_
+- Bugfix: Limit propagation of ``cpp_info.sources`` from ``INTERFACE_SOURCES`` to only direct dependencies. `#20297 <https://github.com/conan-io/conan/pull/20297>`_ . Docs `here <https://github.com/conan-io/docs/pull/4547>`__
+- Bugfix: Avoid reporting the cached username when authentication was attempted with a different user. `#20316 <https://github.com/conan-io/conan/pull/20316>`_
+- Bugfix: `QbsDeps` dependency names now match `pkg_config_name`/`qbs_file_name`. `#20329 <https://github.com/conan-io/conan/pull/20329>`_
+- Bugfix: Correct computation of ``options`` in the ``conan graph build-order`` command. `#20331 <https://github.com/conan-io/conan/pull/20331>`_
+- Bugfix: Consider a server revision found via ``--update`` as latest, even if its ``prev`` isn't latest locally. `#20336 <https://github.com/conan-io/conan/pull/20336>`_
+- Bugfix: `conan graph build-order` now honors `--update` when resolving version ranges (same as `graph info` / `install`) `#20350 <https://github.com/conan-io/conan/pull/20350>`_
+- Bugfix: Fix `conan graph build-order --update` ignoring the `--update` flag. `#20356 <https://github.com/conan-io/conan/pull/20356>`_
+
 2.32.0 (31-Aug-2026)
 --------------------
 
