@@ -1,0 +1,14 @@
+:orphan:
+
+Page Not Found
+==============
+
+Unfortunately, the page you are looking for does not exist or was removed.
+
+You can look into our reference tree, or use the search bar for a desired topic.
+
+If you think this is an error and the page should be there, please open an `issue <https://github.com/conan-io/docs/issues>`_ .
+
+.. image:: images/frogarian.png
+   :width: 240 px
+   :align: center

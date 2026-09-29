@@ -1,0 +1,38 @@
+<a id="reference-config-files"></a>
+
+# Configuration files
+
+These are the most important configuration files, used to customize conan.
+
+* [global.conf](https://docs.conan.io/2//reference/config_files/global_conf.html.md)
+  * [Introduction to configuration](https://docs.conan.io/2//reference/config_files/global_conf.html.md#introduction-to-configuration)
+  * [User/Tools configurations](https://docs.conan.io/2//reference/config_files/global_conf.html.md#user-tools-configurations)
+  * [Configuration file template](https://docs.conan.io/2//reference/config_files/global_conf.html.md#configuration-file-template)
+  * [Configuration data types](https://docs.conan.io/2//reference/config_files/global_conf.html.md#configuration-data-types)
+  * [Configuration data operators](https://docs.conan.io/2//reference/config_files/global_conf.html.md#configuration-data-operators)
+  * [Configuration patterns](https://docs.conan.io/2//reference/config_files/global_conf.html.md#configuration-patterns)
+* [Configuration precedence](https://docs.conan.io/2//reference/config_files/global_conf.html.md#configuration-precedence)
+  * [Important configurations with `!` specifier](https://docs.conan.io/2//reference/config_files/global_conf.html.md#important-configurations-with-specifier)
+* [Information about built-in confs](https://docs.conan.io/2//reference/config_files/global_conf.html.md#information-about-built-in-confs)
+  * [Policies](https://docs.conan.io/2//reference/config_files/global_conf.html.md#policies)
+  * [Networking confs](https://docs.conan.io/2//reference/config_files/global_conf.html.md#networking-confs)
+  * [Storage configurations](https://docs.conan.io/2//reference/config_files/global_conf.html.md#storage-configurations)
+  * [UX confs](https://docs.conan.io/2//reference/config_files/global_conf.html.md#ux-confs)
+* [profiles](https://docs.conan.io/2//reference/config_files/profiles.html.md)
+  * [Introduction to profiles](https://docs.conan.io/2//reference/config_files/profiles.html.md#introduction-to-profiles)
+  * [Using profiles](https://docs.conan.io/2//reference/config_files/profiles.html.md#using-profiles)
+  * [Profile sections](https://docs.conan.io/2//reference/config_files/profiles.html.md#profile-sections)
+  * [Profile rendering](https://docs.conan.io/2//reference/config_files/profiles.html.md#profile-rendering)
+  * [Profile patterns](https://docs.conan.io/2//reference/config_files/profiles.html.md#profile-patterns)
+  * [Profile includes](https://docs.conan.io/2//reference/config_files/profiles.html.md#profile-includes)
+* [settings.yml](https://docs.conan.io/2//reference/config_files/settings.html.md)
+  * [Operating systems](https://docs.conan.io/2//reference/config_files/settings.html.md#operating-systems)
+  * [Compilers](https://docs.conan.io/2//reference/config_files/settings.html.md#compilers)
+  * [Architectures](https://docs.conan.io/2//reference/config_files/settings.html.md#architectures)
+  * [C++ standard libraries (aka compiler.libcxx)](https://docs.conan.io/2//reference/config_files/settings.html.md#c-standard-libraries-aka-compiler-libcxx)
+  * [Customizing settings](https://docs.conan.io/2//reference/config_files/settings.html.md#customizing-settings)
+  * [settings_user.yml](https://docs.conan.io/2//reference/config_files/settings.html.md#settings-user-yml)
+* [remotes.json](https://docs.conan.io/2//reference/config_files/remotes.html.md)
+* [source_credentials.json](https://docs.conan.io/2//reference/config_files/source_credentials.html.md)
+* [credentials.json](https://docs.conan.io/2//reference/config_files/credentials.html.md)
+* [.conanrc](https://docs.conan.io/2//reference/config_files/conanrc.html.md)
