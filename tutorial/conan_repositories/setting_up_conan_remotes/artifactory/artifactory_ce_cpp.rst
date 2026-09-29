@@ -20,11 +20,11 @@ The latest image is ``releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest``
 
 .. code-block:: bash
 
-    $ docker run --name artifactory -d -e JF_SHARED_DATABASE_TYPE=derby -e JF_SHARED_DATABASE_ALLOWNONPOSTGRESQL=true -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest
+    $ docker run --name artifactory -d -e JF_SHARED_DATABASE_TYPE=derby -e JF_SHARED_DATABASE_ALLOWNONPOSTGRESQL=true -e JF_JFCONNECT_ENABLED=false -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest
 
 
 This is running Artifactory CE with an embedded Derby database. For better performance in production, you might want to check
-the `Single node Artifactory installation <https://docs.jfrog.com/installation/docs/docker>`_ 
+the `Single node Artifactory installation <https://docs.jfrog.com/installation/docs/docker>`_
 and the full `Artifactory installation guide <https://docs.jfrog.com/installation/docs/installing-artifactory>`_.
 
 For versions older than Artifactory 7.77, alternative installation methods like
