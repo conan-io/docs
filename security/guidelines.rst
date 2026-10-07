@@ -22,3 +22,39 @@ This is an incomplete and preliminary, not exhaustive security related recommend
   The :ref:`local-recipes-index feature<devops_local_recipes_index>` was designed to help in this process.
 - To avoid being disrupted by internet outages and possible tampering of tarballs downloaded from the internet, the
   :ref:`Backup sources<conan_backup_sources>` feature can be used.
+
+
+.. _security_archive_extraction:
+
+Archive extraction and trust model
+----------------------------------
+
+Conan extracts ``tar`` archives (``.tar``, ``.tgz``, ``.tar.gz``, ``.txz``, ``.tar.bz2``, etc.) in several places: the
+``unzip()`` and ``get()`` tools in recipes, the package and recipe tarballs downloaded from remotes, and
+``conan cache restore``. In all of them, **Conan uses the Python** ``tarfile`` **extraction filter** ``fully_trusted`` **by default**.
+That means that the archive contents are extracted as they are, without the protections of the ``data`` filter:
+absolute paths, paths with ``..`` that escape the destination folder, links pointing outside the destination, device files, and
+special permission bits (setuid, setgid, sticky) are not rejected or sanitized. This is also the behavior of Python < 3.14, but Conan
+sets it explicitly, so it doesn't change when running Conan with Python >= 3.14, where ``data`` became the Python default.
+
+The reasons for this default are:
+
+- The ``data`` filter is not backwards compatible for binary packages. For example, it strips setuid/setgid/sticky bits, removes group/other write
+  permissions and rejects some links. Changing the default could silently alter or break existing packages.
+- The content being extracted by Conan is either C/C++ source code that is going to be compiled and executed, or
+  binaries that are going to be executed. Extracting such content from an untrusted archive is dangerous
+  regardless of the extraction filter, so the only model that makes sense is that **the archives are fully trusted**.
+
+This implies that **a malicious or compromised archive can write files outside of the destination folder**, and
+it is the responsibility of the user to only consume archives from trusted sources:
+
+- Only use Conan remotes that you trust, and limit who can upload to them (see the recommendations above).
+- Do not run ``conan cache restore`` on archives from untrusted origins.
+- In recipes, only use ``get()`` and ``unzip()`` with sources downloaded from trusted locations, and always
+  provide a checksum (``sha256``) for downloaded tarballs. Consider the :ref:`Backup sources<conan_backup_sources>` feature.
+- For tarballs from less trusted origins, the ``data`` filter can be requested with the ``extract_filter="data"`` argument in ``unzip()`` and ``get()``,
+  or globally with the ``tools.files.unzip:filter=data`` conf. Note that it applies only to these recipe helpers, and not to
+  the extraction of Conan packages downloaded from remotes or to ``conan cache restore``. It will not make it safe
+  to compile or execute the extracted contents.
+
+Issues that only rely on an archive being extracted with the ``fully_trusted`` filter are considered as part of this trust model, not as vulnerabilities.

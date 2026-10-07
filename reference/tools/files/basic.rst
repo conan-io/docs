@@ -257,6 +257,15 @@ Use the ``pattern`` argument if you want to filter specific files and paths to d
     defined in ``global.conf``, or it can be explicitly added as argument in recipes ``unzip()`` and ``get()``
     helpers) as that is the current security recommendation while downloading sources from the internet.
 
+.. warning::
+
+    By default, if no ``extract_filter`` argument or ``tools.files.unzip:filter`` conf is defined, Conan extracts ``tar`` files using the
+    ``fully_trusted`` filter, also with Python 3.14 or later. This is done to avoid breaking existing packages (the ``data`` filter, for example,
+    removes setuid/setgid/sticky bits and group/other write permissions) and because the extracted
+    contents (source code or binaries) are going to be compiled or executed anyway, so archives must always be fully trusted. This default is not
+    applied to ``.zip`` files, which are extracted with Python ``zipfile`` and are not affected by these filters.
+    Read more in :ref:`the security guidelines<security_archive_extraction>`.
+
 
 .. currentmodule:: conan.tools.files.files
 
