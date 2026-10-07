@@ -254,6 +254,11 @@ conan cache restore
 
 Read more in :ref:`devops_save_restore`.
 
+.. warning::
+
+    The archive is extracted with the ``fully_trusted`` tar filter. Only restore archives from trusted origins,
+    see :ref:`the security guidelines<security_archive_extraction>`.
+
 
 conan cache ref
 ----------------
