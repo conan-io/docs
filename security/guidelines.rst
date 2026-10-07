@@ -31,7 +31,8 @@ Archive extraction and trust model
 
 Conan extracts ``tar`` archives (``.tar``, ``.tgz``, ``.tar.gz``, ``.txz``, ``.tar.bz2``, etc.) in several places: the
 ``unzip()`` and ``get()`` tools in recipes, the package and recipe tarballs downloaded from remotes, and
-``conan cache restore``. In all of them, **Conan uses the Python** ``tarfile`` **extraction filter** ``fully_trusted`` **by default**.
+``conan cache restore``. In all of them, **Conan uses the Python** ``tarfile`` **extraction filter** ``fully_trusted`` **by default** (see the
+`Python tarfile extraction filters docs <https://docs.python.org/3/library/tarfile.html#tarfile-extraction-filter>`_).
 That means that the archive contents are extracted as they are, without the protections of the ``data`` filter:
 absolute paths, paths with ``..`` that escape the destination folder, links pointing outside the destination, device files, and
 special permission bits (setuid, setgid, sticky) are not rejected or sanitized. This is also the behavior of Python < 3.14, but Conan
@@ -39,7 +40,7 @@ sets it explicitly, so it doesn't change when running Conan with Python >= 3.14,
 
 The reasons for this default are:
 
-- The ``data`` filter is not backwards compatible for binary packages. For example, it strips setuid/setgid/sticky bits, removes group/other write
+- The `data filter <https://docs.python.org/3/library/tarfile.html#tarfile.data_filter>`_ is not backwards compatible for binary packages. For example, it strips setuid/setgid/sticky bits, removes group/other write
   permissions and rejects some links. Changing the default could silently alter or break existing packages.
 - The content being extracted by Conan is either C/C++ source code that is going to be compiled and executed, or
   binaries that are going to be executed. Extracting such content from an untrusted archive is dangerous
