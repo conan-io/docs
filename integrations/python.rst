@@ -64,3 +64,5 @@ by the recipe.
 
     - :ref:`PyEnv reference<conan_tools_system_pyenv>`, for the full API and
       a recipe example.
+    - :ref:`Using the PyEnv Python from CMake<conan_tools_system_pyenv_cmake>`,
+      for the caveats when a CMake project looks for Python.

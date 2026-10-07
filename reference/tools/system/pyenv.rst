@@ -90,3 +90,68 @@ If we run a ``conan build`` we can see how our Python package is installed when 
     conanfile.py (pip_install/0.1): Calling build()
     conanfile.py (pip_install/0.1): RUN: meson --version
     1.9.1
+
+
+.. _conan_tools_system_pyenv_cmake:
+
+Using the PyEnv Python from CMake
+---------------------------------
+
+Calling ``PyEnv.generate()`` adds the **bin** (or **Scripts** on Windows) folder of the virtual environment to the ``PATH``
+of the Conan Environment. This is enough to run the installed tools from a ``self.run()`` call, but it is **not always enough**
+for CMake's ``find_package(Python)``:
+
+- **PATH priority**: the ``VirtualBuildEnv`` is generated automatically by Conan *after* the ``generate()`` method.
+  If the profile contains something like ``[buildenv]`` ``PATH=+(path)C:/Python313``, that folder will end up with a higher priority
+  than the virtual environment. To avoid it, generate the ``VirtualBuildEnv`` explicitly **before** calling ``PyEnv.generate()``.
+- **CMake FindPython search order**: by default, `FindPython <https://cmake.org/cmake/help/latest/module/FindPython.html>`_ does not
+  just look for ``python`` or ``python3`` in the ``PATH``. It also looks for *versioned* executables (like ``python3.13``),
+  prefers the most recent version it can find, and takes into account frameworks and the Windows registry.
+  So, it can find a different Python than the one in the virtual environment.
+
+.. note::
+
+    Conan does not set the ``VIRTUAL_ENV`` environment variable when generating the ``PyEnv`` environment, because it is read by Python
+    itself and it could interfere with other Python executions.
+
+To make sure that CMake uses the Python from the virtual environment, pass the hints explicitly to CMake
+with :ref:`CMakeToolchain<conan_tools_cmaketoolchain>`. The ``PyEnv`` object exposes the ``env_dir`` (root folder of the virtual environment),
+``env_exe`` (path to the Python executable) and ``bin_path`` (``bin``/``Scripts`` folder) attributes for this purpose.
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain
+    from conan.tools.env import VirtualBuildEnv
+    from conan.tools.system import PyEnv
+
+
+    class Pkg(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            # Generate it first, so the PyEnv path has priority over the profile [buildenv] PATH
+            buildenv = VirtualBuildEnv(self)
+            buildenv.generate()
+
+            pyenv = PyEnv(self)
+            pyenv.install(["html5lib~=1.0"])
+            pyenv.generate()
+
+            tc = CMakeToolchain(self)
+            # Option 1: look for Python in the PATH and in the venv root
+            # (STANDARD ignores the VIRTUAL_ENV of any other activated venv)
+            tc.cache_variables["Python_FIND_VIRTUALENV"] = "STANDARD"
+            tc.cache_variables["Python_ROOT_DIR"] = pyenv.env_dir
+            # Option 2: directly point to the executable, no search is done
+            # tc.cache_variables["Python_EXECUTABLE"] = pyenv.env_exe
+            tc.generate()
+
+If other Python installations in the system are still found, these extra variables can also help:
+
+.. code-block:: python
+
+    tc.cache_variables["Python_FIND_UNVERSIONED_NAMES"] = "FIRST"
+    tc.cache_variables["Python_FIND_STRATEGY"] = "LOCATION"
+    tc.cache_variables["Python_FIND_REGISTRY"] = "NEVER"
