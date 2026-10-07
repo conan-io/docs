@@ -87,6 +87,7 @@ The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a 
     #. ``package_id()``
     #. ``layout()``
     #. ``system_requirements()``
+    #. ``build_system_requirements()``
 #. Install packages
     #. ``source()``
     #. ``build_id()``
@@ -96,7 +97,8 @@ The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a 
     #. ``package_info()``
 
 Steps ``generate()``,  ``build()``, ``package()`` from *Install packages* step will not be called if the package
-is not being built from sources.
+is not being built from sources. Likewise, ``build_system_requirements()`` is only called for packages that are
+being built from sources.
 
 After that, if you have a folder named *test_package* in your project or you call the ``conan create`` command with the
 ``--test-folder`` flag, the command will invoke the methods of the *conanfile.py* file inside the folder in the following order:
@@ -125,7 +127,9 @@ After that, if you have a folder named *test_package* in your project or you cal
     #. (test package) ``package_id()``
     #. (test package) ``layout()``
     #. ``system_requirements()``
+    #. ``build_system_requirements()``
     #. (test package) ``system_requirements()``
+    #. (test package) ``build_system_requirements()``
 #. Install packages
     #. ``build_id()``
     #. ``generate()``
