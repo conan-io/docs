@@ -116,7 +116,7 @@ And copying the shared libraries in Windows and OSX to the current build folder,
     **Best practices**
 
     - Copying shared libraries to the current project in ``generate()`` is not a necessary in most cases, and shouldn't be done as a general approach. Instead, the Conan environment generators, which are enabled by default, will automatically generate environment scripts like ``conanbuild.bat|.sh`` or ``conanrun.bat|.sh`` with the necessary environment variables (``PATH``, ``LD_LIBRARY_PATH``, etc), to correctly locate and use the shared libraries of dependencies at runtime.
-    - Accessing dependencies ``self.dependencies["mydep"].package_folder`` is possible, but it will be ``None`` when the dependency "mydep" is in "editable" mode. If you plan to use editable packages, make sure to always reference the ``cpp_info.xxxdirs`` instead.
+    - Accessing dependencies ``self.dependencies["mydep"].package_folder`` is possible, but it can be ``None`` (see the ``package_folder`` field below). Always check for ``None`` before using it, and prefer referencing the ``cpp_info.xxxdirs`` instead, which are always defined and are resolved transparently for both packages in the cache and "editable" packages.
 
 
 .. seealso::
@@ -175,7 +175,19 @@ Some **important** points:
 
 Not all fields of the dependency conanfile are exposed, the current fields are:
 
-- **package_folder**: The folder location of the dependency package binary
+- **package_folder**: The folder location of the dependency package binary. It can be ``None`` in some cases:
+
+  - When the dependency binary is skipped because it is not necessary (for example, a static library that is a transitive
+    dependency of a shared library). The binary is not even downloaded from the server, so there is no folder to point to.
+  - It is **not** ``None`` for packages in :ref:`editable mode<editable_packages>`. In that case it points to the
+    local project root folder (where the ``conanfile.py`` of the editable package is). Note that there is no actual "package" there:
+    the files are not laid out as in a package, and the folder can contain sources, build files and any other project file.
+    Consumers that need to locate artifacts should use ``cpp_info`` (defined in the ``layout()`` method), which
+    works transparently for editable and cache packages.
+
+  Any recipe, generator or deployer accessing ``package_folder`` must be prepared for these cases.
+- **recipe**: How the dependency recipe was obtained, for example ``"Cache"`` for recipes in the Conan cache or ``"Editable"``
+  for packages in editable mode. It is a valid way to distinguish editable packages, for example in custom generators or deployers.
 - **recipe_folder**: The folder containing the ``conanfile.py`` (and other exported files) of the dependency
 - **recipe_metadata_folder**: The folder containing optional recipe metadata files of the dependency
 - **package_metadata_folder**: The folder containing optional package metadata files of the dependency
@@ -200,7 +212,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - **package_type**: The ``package_type`` of the dependency
 - **languages**: The ``languages`` of the dependency.
 - **extension_properties**: The ``extension_properties`` of the dependency. Should be treated as read-only.
-- **recipe**: The ``recipe`` type of the dependency (e.g., "Cache"). This should only be used for `informational <https://github.com/conan-io/conan/issues/18996>`_ or reporting purposes. Using it for any kind of conditional logic on the consumers side is considered bad practice and unsupported.
+- **recipe**: The ``recipe`` type of the dependency (e.g., "Cache", "Editable"). This should only be used for `informational <https://github.com/conan-io/conan/issues/18996>`_ or reporting purposes. For most cases, the contents of the dependency are abstracted from the type of the dependency, so using it for any kind of conditional logic on the consumers side is discouraged in most cases, except for checking when a dependency is ``Editable`` from a custom ``deployer``, to prevent deploying such editable package.
 
 
 Iterating dependencies

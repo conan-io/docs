@@ -46,6 +46,20 @@ Then every dependency will end up in a folder such as:
 
 See a full example of the usage of ``full_deploy`` deployer in :ref:`examples_extensions_builtin_deployers_development`.
 
+.. note::
+
+    **Editable packages and skipped binaries**
+
+    - Dependencies whose ``package_folder`` is ``None`` (for example, skipped binaries that are not necessary) are not deployed.
+    - Dependencies in :ref:`editable mode<editable_packages>` are **not** skipped. Their ``package_folder`` is the local project root
+      folder, so the whole contents of that folder (sources, build outputs, etc.) will be copied to the deployed folder.
+      This is generally harmless, but it is usually not what is wanted, and the general recommendation is to not deploy editable packages.
+    - If a different behavior is needed, such as skipping editables or raising an error, use a custom deployer.
+      See :ref:`examples_extensions_deployers_full_deploy_editables` for the full implementation of ``full_deploy``
+      and how to adapt it.
+    - The built-in deployers are mostly a convenience and an example. For real production needs, the expectation is
+      to provide custom deployers and install them with ``conan config install`` or ``conan config install-pkg``.
+
 .. _reference_extensions_deployer_direct_deploy:
 
 direct_deploy
