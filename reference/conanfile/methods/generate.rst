@@ -186,8 +186,6 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
     works transparently for editable and cache packages.
 
   Any recipe, generator or deployer accessing ``package_folder`` must be prepared for these cases.
-- **recipe**: How the dependency recipe was obtained, for example ``"Cache"`` for recipes in the Conan cache or ``"Editable"``
-  for packages in editable mode. It is a valid way to distinguish editable packages, for example in custom generators or deployers.
 - **recipe_folder**: The folder containing the ``conanfile.py`` (and other exported files) of the dependency
 - **recipe_metadata_folder**: The folder containing optional recipe metadata files of the dependency
 - **package_metadata_folder**: The folder containing optional package metadata files of the dependency
