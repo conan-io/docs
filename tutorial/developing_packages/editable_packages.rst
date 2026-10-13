@@ -242,3 +242,12 @@ requirement will get it from the cache again.
     generate binaries and packages that are incompatible with the released version of the
     editable package. Avoid uploading these packages without re-creating them with the
     in-cache version of all libraries.
+
+.. note::
+
+    For packages in editable mode, the ``package_folder`` of the dependency, as seen from the consumers
+    (``self.dependencies["say"].package_folder``), points to the local project root folder, where there is no actual "package".
+    Recipes, generators and deployers should use ``cpp_info`` to locate the artifacts, which works transparently
+    for editable and cache packages. Note that ``package_folder`` can also be ``None`` for other dependencies, when
+    the binary is skipped because it is not necessary. See the :ref:`dependencies reference<reference_conanfile_methods_generate>`
+    and the :ref:`full_deploy deployer<reference_extensions_deployer_full_deploy>` for more information.
