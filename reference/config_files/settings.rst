@@ -36,6 +36,65 @@ embedded microprocessors and microcontrollers' code. It is expected that users m
 At the moment the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers,
 but it is expected that they can evolve and start using it.
 
+.. _reference_config_files_settings_yml_libc:
+
+Linux libc (os.libc)
+++++++++++++++++++++
+
+.. include:: ../../common/experimental_warning.inc
+
+From Conan 2.34, the ``Linux`` operating system defines the ``os.libc`` sub-setting, with its own
+``os.libc.version`` sub-setting:
+
+.. code-block:: yaml
+
+    os:
+        Linux:
+            libc:
+                null:
+                glibc:
+                    version: [null, "2.9", "2.10", "2.11", "2.12", "2.13", "2.14", "2.15", "2.16",
+                              "2.17", "2.18", ..., "2.42", "2.43"]
+                musl:
+                    version: [null, "1.2.2", "1.2.3", "1.2.4", "1.2.5", "1.2.6"]
+
+A binary built on Linux depends on the C library implementation it was linked against (``glibc`` or ``musl``),
+and on the minimum version of it. A binary linked against glibc 2.39 can fail to run on a system with glibc 2.35
+with errors such as ``version `GLIBC_2.38' not found``. Defining these settings in the profiles makes
+this information part of the ``package_id``, so such binaries are not considered valid for older systems.
+
+- ``os.libc.version`` is the minimum libc version the binary needs. By default, it is the version of the libc
+  it was built and linked against.
+- All the glibc releases from 2.9 are defined. Older releases than the ones of the supported Linux distributions
+  are needed, because the minimum glibc version of a binary is the one that introduced the newest glibc symbol
+  it uses, not the one of the build machine. For example, a binary that only uses ``memcpy@GLIBC_2.14`` runs
+  with glibc 2.14, even if it was built with glibc 2.17.
+- The musl versions defined are the ones shipped by the supported releases of the major Linux distributions.
+  Other versions can be added with :ref:`settings_user.yml<reference_config_files_customizing_settings>`.
+- Both settings default to ``null``. Binaries created without them keep the same ``package_id``.
+- :command:`conan profile detect` defines both settings on Linux. If the detected version is not defined in
+  *settings.yml*, only ``os.libc`` is defined, and a warning is shown.
+- The default :ref:`compatibility plugin<reference_extensions_binary_compatibility>` considers binaries built
+  against an older version of the same libc compatible, and also binaries that do not define ``os.libc``.
+  Profiles that do not define ``os.libc`` can use binaries that define it, the most portable ones first.
+- The ``AutotoolsToolchain`` and ``GnuToolchain`` use ``linux-musl`` in the GNU triplet when cross-building
+  with ``os.libc=musl``.
+
+.. code-block:: text
+    :caption: *profile*
+
+    [settings]
+    os=Linux
+    os.libc=glibc
+    os.libc.version=2.28
+    arch=x86_64
+    compiler=gcc
+    ...
+
+The settings only declare the libc of the binaries, they do not change it. To build binaries for an older
+glibc, the build must happen with that glibc, for example in a container of an older distribution or with a
+cross-compiling toolchain with a sysroot for that glibc version.
+
 
 Compilers
 ---------
