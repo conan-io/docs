@@ -1,0 +1,104 @@
+<a id="conan-tools-env-virtualrunenv"></a>
+
+# VirtualRunEnv
+
+`VirtualRunEnv` is a generator that produces a launcher *conanrunenv* .bat, .ps1 or .sh script containing environment variables
+of the run time environment.
+
+The launcher contains the runtime environment information, anything that is necessary in the environment to actually run
+the compiled executables and applications. The information is obtained from:
+
+> - The `self.runenv_info` of the dependencies corresponding to the `host` context.
+> - Also automatically deduced from the `self.cpp_info` definition of the package to define `PATH`.
+> - `LD_LIBRARY_PATH`, `DYLD_LIBRARY_PATH`, and `DYLD_FRAMEWORK_PATH` are similarly deduced on
+>   non-Windows hosts if the `os` setting is set.
+
+It can be used by name in conanfiles:
+
+```python
+class Pkg(ConanFile):
+    generators = "VirtualRunEnv"
+```
+
+```text
+[generators]
+VirtualRunEnv
+```
+
+And it can also be fully instantiated in the conanfile `generate()` method:
+
+```python
+from conan import ConanFile
+from conan.tools.env import VirtualRunEnv
+
+class Pkg(ConanFile):
+    settings = "os", "compiler", "arch", "build_type"
+    requires = "zlib/1.3.1", "bzip2/1.0.8"
+
+    def generate(self):
+        ms = VirtualRunEnv(self)
+        ms.generate()
+```
+
+## Generated files
+
+- conanrunenv-release-x86_64.(bat|ps1|sh): This file contains the actual definition of environment variables
+  like PATH, LD_LIBRARY_PATH, etc, and `runenv_info` of dependencies corresponding to the `host` context,
+  and to the current installed configuration. If a repeated call is done with other settings, a different file will be created.
+- conanrun.(bat|ps1|sh): Accumulates the calls to one or more other scripts to give one single convenient file
+  for all. This only calls the latest specific configuration one, that is, if `conan install` is called first for Release build type,
+  and then for Debug, `conanrun.(bat|ps1|sh)` script will call the Debug one.
+
+After the execution of one of those files, a new deactivation script will be generated, capturing the current
+environment, so the environment can be restored when desired. The file will be named also following the
+current active configuration, like `deactivate_conanrunenv-release-x86_64.bat`.
+
+#### NOTE
+To create `.ps1` files required for PowerShell, you need to set the
+`tools.env.virtualenv:powershell` configuration with the value of the PowerShell
+executable (e.g., `powershell.exe` or `pwsh`). Note that, setting it to `True`
+or `False` is deprecated as of Conan 2.11.0 and should no longer be used.
+
+#### NOTE
+To create `.env` dotenv files, use the **experimental** (new in Conan 2.21) `tools.env:dotenv` configuration.
+These files are not intended to be activated as scripts, but loaded by tools such as IDEs.
+The configuration specific files such as `conanrunenv-Release.env` will be generated, as the
+environment can be different for Release and Debug configurations.
+These files at the moment do not use variable interpolation due to some VScode limitations,
+a warning is printed pointing to [https://github.com/microsoft/vscode-cpptools/issues/13781](https://github.com/microsoft/vscode-cpptools/issues/13781) to
+track progress.
+Please open a Github ticket to report any feedback about this feature.
+
+#### NOTE
+For disabling the automatic generation of environment files, check [Disabling VirtualBuildEnv](https://docs.conan.io/2//reference/tools/env/virtualbuildenv.html.md#reference-tools-env-virtualbuildenv-disable)
+
+## Reference
+
+### *class* VirtualRunEnv(conanfile, auto_generate=False)
+
+Calculates the environment variables of the runtime context and produces a conanrunenv
+.bat or .sh script
+
+* **Parameters:**
+  **conanfile** – The current recipe object. Always use `self`.
+
+#### environment()
+
+Returns an `Environment` object containing the environment variables of the run context.
+
+* **Returns:**
+  an `Environment` object instance containing the obtained variables.
+
+#### vars(scope='run')
+
+* **Parameters:**
+  **scope** – Scope to be used.
+* **Returns:**
+  An `EnvVars` instance containing the computed environment variables.
+
+#### generate(scope='run')
+
+Produces the launcher scripts activating the variables for the run context.
+
+* **Parameters:**
+  **scope** – Scope to be used.
