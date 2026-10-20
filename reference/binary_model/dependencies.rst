@@ -7,7 +7,7 @@ When a given package depends on a another package and uses it, the effect of dep
 
 For libraries:
 
-- **Non-embed mode**: When an application or a shared library depends on another shared library, or when a static library depends on another static library, the "consumer" library does not do a copy of the binary artifacts of the "dependency" at all. We call it non-embed mode, the dependency binaries are not being linked or embedded in the consumer. This assumes that there are not inlined functionalities in the dependency headers, and the headers are pure interface and not implementation.
+- **Non-embed mode**: When an application, a shared library or a static library depends on another shared library, or when a static library depends on another static library, the "consumer" library does not do a copy of the binary artifacts of the "dependency" at all. We call it non-embed mode, the dependency binaries are not being linked or embedded in the consumer. This assumes that there are not inlined functionalities in the dependency headers, and the headers are pure interface and not implementation.
 - **Embed mode**: When an application or a shared library depends on a header-only or a static-library, the dependencies binaries are copied or partially copied (depending on the linker) in the consumer binary. Also when a static library depends on a header-only library, it is considered that there will be embedding in the consumer binary of such headers, as they will also contain the implementation, it is impossible that they are a pure interface.
 
 For header-only libraries:
@@ -207,7 +207,7 @@ The following summarizes the defaults:
   - Package types:
 
     - A ``static-library`` linking with another ``static-library``
-    - An ``application`` or ``shared-librayr`` linking another ``shared-library``.
+    - An ``application``, ``shared-library`` or ``static-library`` linking another ``shared-library``.
   
   - Default ``package_id_mode``: ``minor_mode``: patch-version changes are ignored; minor or major changes force a rebuild
 
@@ -215,7 +215,7 @@ The following summarizes the defaults:
 
   - Package types:
 
-    - A ``header-library`` depending on any other ``static-library``, ``shared-library`` or ``headed-library``.
+    - A ``header-library`` depending on any other ``static-library``, ``shared-library`` or ``header-library``.
   
   - Default ``package_id_mode``: None. Header-only libraries are not affected in their ``package_id`` by their dependencies versions.
 
