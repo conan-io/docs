@@ -49,7 +49,9 @@ CppInfo interface
 The public documented interface (besides the defined one in :ref:`the package_info()<reference_conanfile_methods_package_info>`) is:
 
 - ``CppInfo(conanfile)``: Constructor. Receives a ``conanfile`` as argument, typically ``self``
-- ``aggregated_components()``: return a new ``CppInfo`` object resulting from the aggregation of all the components
+- ``aggregated_components(components=None)``: return a new ``CppInfo`` object resulting from the aggregation of all the components.
+  If the optional ``components`` argument is passed (a list of component names), only those components are aggregated
+  (new in Conan 2.34).
 - ``get_sorted_components()``: Get the ordered components of a package, prioritizing those
   with fewer dependencies within the same package. Returns an ``OrderedDict`` of sorted
   components in the format ``{component_name: component}``.
