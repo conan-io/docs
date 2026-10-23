@@ -5,7 +5,9 @@ Build a simple Bazel project using Conan
 
 .. warning::
 
-    This example is Bazel 6.x compatible.
+    This example is Bazel 6.x compatible. The Bazel 6.x support in ``BazelDeps`` is deprecated since Conan 2.34
+    and will be removed in a future release. See :ref:`examples_tools_bazel_7x_toolchain_build_simple_bazel_project`
+    for the recommended approach.
 
 In this example, we are going to create a Hello World program
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest>`_.
