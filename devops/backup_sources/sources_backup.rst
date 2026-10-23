@@ -131,6 +131,35 @@ When the backup is fetched from the the backup remote, a message like what follo
 If we now again try to run this, we'll find that no download is performed and the locally stored version of the files is used.
 
 
+.. _backup_sources_origin_urls_header:
+
+Original URLs sent to the backup server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.34
+
+Backup sources are stored and retrieved by the ``sha256`` of the file, so the backup server does not know by default where
+the requested file originally came from. To make this information available to the server,
+Conan sends the original URLs in the ``X-Conan-Origin-Urls`` HTTP header when requesting the file from a
+backup remote defined in ``core.sources:download_urls``.
+
+The value of the header is a JSON-encoded list with the URLs passed to the ``get``/``download`` call
+(a single URL is also sent as a list with one element). For example, for the ``zlib`` call shown above, the request
+to the backup remote would include:
+
+.. code-block:: text
+
+   GET /artifactory/backup-sources/<sha256> HTTP/1.1
+   X-Conan-Origin-Urls: ["https://zlib.net/fossils/zlib-1.3.tar.gz", "https://github.com/madler/zlib/releases/download/v1.3/zlib-1.3.tar.gz"]
+
+.. note::
+
+   - The header is only sent in the request for the source file itself, not in the one for its ``.json`` metadata file.
+   - The header is never sent to the ``origin`` URLs, only to the backup remotes.
+   - The URLs are sent as they are specified in the recipe, so make sure they don't contain secrets
+     (like tokens in the URL), as they would be visible to the backup server.
+
+
 Upload the packages
 ~~~~~~~~~~~~~~~~~~~
 
