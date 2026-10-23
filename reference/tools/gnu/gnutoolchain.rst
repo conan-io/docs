@@ -105,18 +105,24 @@ These are the attributes that can be customized:
 
 * **configure_args**: Dict-like object with the arguments to be passed to the configure script. The keys are the
   argument names and the values their values, or ``None`` for arguments without value.
-    - By default the following arguments are passed:
-        * ``--prefix``: Takes the ``prefix`` constructor argument, ``/`` as default value.
-        * ``--bindir=${prefix}/bin``
-        * ``--sbindir=${prefix}/bin``
-        * ``--libdir=${prefix}/lib``
-        * ``--includedir=${prefix}/include``
-        * ``--oldincludedir=${prefix}/include``
-        * ``--datarootdir=${prefix}/res``
-    - Also, depending on the ``package_type`` of the recipe, it will add by default:
-        * ``--enable-shared``, ``--disable-static`` if ``package_type`` is ``shared-library``
-        * ``--disable-shared``, ``--enable-static`` if ``package_type`` is ``static-library``
-    - When cross-building, ``--host`` and ``--build`` are added with the calculated GNU triplets.
+
+  - By default the following arguments are passed:
+
+    * ``--prefix``: Takes the ``prefix`` constructor argument, ``/`` as default value.
+    * ``--bindir=${prefix}/bin``
+    * ``--sbindir=${prefix}/bin``
+    * ``--libdir=${prefix}/lib``
+    * ``--includedir=${prefix}/include``
+    * ``--oldincludedir=${prefix}/include``
+    * ``--datarootdir=${prefix}/res``
+
+  - Also, depending on the ``package_type`` of the recipe, it will add by default:
+
+    * ``--enable-shared``, ``--disable-static`` if ``package_type`` is ``shared-library``
+    * ``--disable-shared``, ``--enable-static`` if ``package_type`` is ``static-library``
+
+  - When cross-building, ``--host`` and ``--build`` are added with the calculated GNU triplets.
+
 * **make_args** (Defaulted to ``{}``): Dict-like object with the additional arguments to be passed to the make script.
 * **autoreconf_args** (Defaulted to ``{"--force": None, "--install": None}``): Dict-like object with the additional arguments
   to be passed to the autoreconf script.
