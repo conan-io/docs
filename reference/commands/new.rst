@@ -89,13 +89,15 @@ The available templates are:
 
 - **bazel_lib**:
   **Bazel integration BazelDeps, BazelToolchain, Bazel is experimental**. 
-  Creates a Bazel library.
+  Creates a Bazel library. Since Conan 2.34, it is the same as **bazel_7_lib**. It generates a
+  *MODULE.bazel* based project that requires Bazel >= 7.2.
 
   Its variables are: ``name``, ``version``
 
 - **bazel_exe**:
   **Bazel integration BazelDeps, BazelToolchain, Bazel is experimental**.
-  Creates a Bazel executable
+  Creates a Bazel executable. Since Conan 2.34, it is the same as **bazel_7_exe**. It generates a
+  *MODULE.bazel* based project that requires Bazel >= 7.2.
 
   Its variables are: ``name``, ``version``
 

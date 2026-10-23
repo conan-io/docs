@@ -13,6 +13,13 @@ files like *conan_deps.MODULE.bazel* and *BUILD.rules_cc.bazel* (with explicit `
 statements required by Bazel 9.x). All of them contain the logic to load all your Conan dependencies
 through your *WORKSPACE* | *MODULE.bazel*.
 
+.. warning::
+
+   Since Conan 2.34, the Bazel 6.x support (the *dependencies.bzl* file loaded from a *WORKSPACE*) is deprecated
+   and will be removed in a future release. ``BazelDeps`` still generates *dependencies.bzl*, but it now warns
+   about the deprecation when there are dependencies. Use Bazel >= 7.2 and add
+   ``include("//conan:conan_deps.MODULE.bazel")`` to your *MODULE.bazel* file instead.
+
 The ``BazelDeps`` generator can be used by name in conanfiles:
 
 .. code-block:: python
@@ -73,7 +80,8 @@ Every :command:`conan install` generates these files:
   :ref:`conan_tools_google_bazeldeps_customization`.
 * *zlib/BUILD.rules_cc.bazel*: same targets as *BUILD.bazel*, but with ``rules_cc`` ``load()`` statements
   (Bazel 9.x compatible).
-* *dependencies.bzl*: (Bazel 6.x compatible) this file tells your Bazel *WORKSPACE* how to load the dependencies.
+* *dependencies.bzl*: (Bazel 6.x compatible, deprecated since Conan 2.34) this file tells your Bazel *WORKSPACE*
+  how to load the dependencies.
 * *conan_deps_module_extension.bzl*: (since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`_)(Bazel >= 7.1 compatible)
   This file is used to load each dependency as repository.
 * *conan_deps_module_extension_rules_cc.bzl*: (Bazel >= 7.2 / 9.x compatible) module extension that references
@@ -86,7 +94,7 @@ Every :command:`conan install` generates these files:
 
 Let's check the content of the files created:
 
-**Bazel 6.x compatible**
+**Bazel 6.x compatible (deprecated)**
 
 
 .. code-block:: python
@@ -181,7 +189,7 @@ Let's check the content of the files created:
 Given the examples above, and imagining that your *WORKSPACE* | *MODULE.bazel* is at the same directory,
 you would have to add these lines in there:
 
-**Bazel 6.x compatible**
+**Bazel 6.x compatible (deprecated)**
 
 .. code-block:: python
     :caption: WORKSPACE
@@ -300,21 +308,21 @@ Running again the :command:`conan install` command, we now get this structure:
     └── conanfile.py
 
 
-Now your Conan-bazel files were generated in the *conan/* folder, your WORKSPACE will look like:
+Now your Conan-bazel files were generated in the *conan/* folder, and your MODULE.bazel will look like:
+
+.. code-block:: python
+    :caption: MODULE.bazel
+
+    include("//conan:conan_deps.MODULE.bazel")
+
+
+Or, with the deprecated Bazel 6.x support, your WORKSPACE:
 
 .. code-block:: python
     :caption: WORKSPACE
 
     load("@//conan:dependencies.bzl", "load_conan_dependencies")
     load_conan_dependencies()
-
-
-Or your MODULE.bazel:
-
-.. code-block:: python
-    :caption: MODULE.bazel
-
-    include("//conan:conan_deps.MODULE.bazel")
 
 
 .. _conan_tools_google_bazeldeps_customization:

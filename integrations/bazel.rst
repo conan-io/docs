@@ -7,8 +7,8 @@ Conan provides different tools to help manage your projects using Bazel. They ca
 imported from ``conan.tools.google``. The most relevant tools are:
 
 - ``BazelDeps``: the dependencies generator for Bazel, which generates a *[DEPENDENCY]/BUILD.bazel* file for each dependency
-  and a *dependencies.bzl* file containing a Bazel function to load all those ones. That function must be loaded by your
-  *WORKSPACE* file.
+  and a *conan_deps.MODULE.bazel* file that loads all of them. Include it from your *MODULE.bazel* file (Bazel >= 7.2).
+  The Bazel 6.x *dependencies.bzl* file loaded from a *WORKSPACE* is still generated, but it is deprecated since Conan 2.34.
 
 - ``BazelToolchain``: the toolchain generator for Bazel, which generates a ``conan_bzl.rc`` file that contains
   a build configuration ``conan-config`` to inject all the parameters into the :command:`bazel build` command.
