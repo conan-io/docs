@@ -173,6 +173,19 @@ The following properties affect the ``CMakeConfigDeps`` generator:
 
 - **cmake_file_name**: The config file generated for the current package will follow the ``<VALUE>-config.cmake`` pattern,
   so to find the package you write ``find_package(<VALUE>)``.
+- **cmake_file_names**: Dictionary to split a package into **several** CMake config files, each one containing a subset
+  of the package components. The keys are the names of the CMake packages (the ``<KEY>-config.cmake`` files,
+  found with ``find_package(<KEY>)``) and the values are dictionaries with the following fields:
+
+  - ``components``: list of the package component names that belong to that config file.
+  - ``properties`` (optional): dictionary of properties that apply only to that config file, overriding the
+    package-level ones. For example ``system_package_version``, ``cmake_config_version_compat``,
+    ``cmake_build_modules``, ``cmake_extra_variables``, ``cmake_additional_variables_prefixes``,
+    ``cmake_extra_dependencies`` or ``cmake_file_name_variants``.
+
+  See :ref:`CMakeConfigDeps multiple config files<cmakeconfigdeps_multiple_config_files>` for the details and
+  limitations. This property is only available since Conan 2.34, it takes precedence over **cmake_file_name**
+  (which is ignored if both are defined), and it cannot be set from the consumer for ``build_context=True`` dependencies.
 - **cmake_file_name_variants**: List of upper/lower case variants of the cmake file name that consumers can use to find the package.
   This is useful to increase the compatibility with different CMake ``find_package()`` calls that might be used in the consumers.
   An error will be raised if the list contains words that are not variants of the ``cmake_file_name`` value unless
@@ -310,6 +323,88 @@ component separated by a double colon (`::`). Here's an example:
         deps = CMakeConfigDeps(self)
         deps.set_property("pkg::component", "cmake_target_name", <new_component_target_name>)
         deps.generate()
+
+
+.. _cmakeconfigdeps_multiple_config_files:
+
+Multiple CMake config files per package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, ``CMakeConfigDeps`` generates a single ``<name>-config.cmake`` file per package, containing the targets of
+all its components. However, some libraries distribute **several CMake packages** from a single project, for example
+``find_package(SPIRV-Tools)`` and ``find_package(SPIRV-Tools-opt)``. To be able to model that from a single Conan
+package, use the ``cmake_file_names`` property (since Conan 2.34) to define which components belong to which CMake config file:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    def package_info(self):
+        self.cpp_info.set_property("cmake_file_names", {
+            "SPIRV-Tools": {"components": ["spirv-tools-core"]},
+            "SPIRV-Tools-opt": {"components": ["spirv-tools-opt"]},
+            "SPIRV-Tools-link": {
+                "components": ["spirv-tools-link"],
+                # Properties that only apply to the SPIRV-Tools-link config files
+                "properties": {"cmake_config_version_compat": "ExactVersion"},
+            },
+        })
+
+        self.cpp_info.components["spirv-tools-core"].libs = ["SPIRV-Tools"]
+        self.cpp_info.components["spirv-tools-opt"].libs = ["SPIRV-Tools-opt"]
+        self.cpp_info.components["spirv-tools-opt"].requires = ["spirv-tools-core"]
+        self.cpp_info.components["spirv-tools-link"].libs = ["SPIRV-Tools-link"]
+        self.cpp_info.components["spirv-tools-link"].requires = ["spirv-tools-core", "spirv-tools-opt"]
+
+The generator will create a complete set of files for each key (``SPIRV-ToolsConfig.cmake``,
+``SPIRV-Tools-optConfig.cmake``, ``SPIRV-Tools-linkConfig.cmake``, their ``*Targets.cmake``, version files, etc.), and
+a ``<KEY>_DIR`` variable for each of them in ``conan_cmakedeps_paths.cmake``. Consumers then use the
+``find_package()`` of the CMake packages they need, and link the component targets directly:
+
+.. code-block:: cmake
+    :caption: CMakeLists.txt
+
+    find_package(SPIRV-Tools-link CONFIG REQUIRED)
+
+    add_executable(example src/main.cpp)
+    target_link_libraries(example PRIVATE SPIRV-Tools-link)
+
+When a component of one config file requires components that live in other config files (from the same or from other
+Conan packages), the generated ``<KEY>-config.cmake`` automatically calls ``find_dependency()`` on the right config files.
+
+When ``cmake_file_names`` is defined, these rules apply:
+
+- Every component of the package must be listed in exactly one of the files. A ``ConanException`` is raised if a component
+  does not exist, or if it is not added to any of the files.
+- There is **no root config file** named after the package, and no root ``pkg::pkg`` target is created, so
+  ``default_components`` are ignored. The targets are not aggregated either, because each config file declares only the
+  targets of its own components.
+- Consumers that require a package using ``cmake_file_names`` must declare which component they link with, using
+  ``self.cpp_info.requires = ["pkg::component"]`` in their ``package_info()``. Otherwise, a ``ConanException`` is
+  raised, because there is no ``pkg::pkg`` target to link against.
+- Each component must define at most one library in ``libs``.
+- It takes precedence over ``cmake_file_name``, which is ignored if both properties are defined.
+- Properties like ``cmake_build_modules``, ``cmake_extra_variables`` or ``system_package_version`` defined in the
+  ``properties`` field of a file, apply only to that file. The rest of properties are read as usual.
+- The legacy variables of each config file (like ``<KEY>_INCLUDE_DIRS`` or ``<KEY>_LIBRARIES``) only contain the
+  information of the components of that file. The ``<KEY>_VERSION_STRING`` is also generated for each file.
+
+Consumers can also redefine the file names and their components with ``CMakeConfigDeps.set_property()``, in the same way as
+any other property:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    def generate(self):
+        deps = CMakeConfigDeps(self)
+        deps.set_property("spirv-tools", "cmake_file_names", {
+            "SPIRV-Tools": {"components": ["spirv-tools-core", "spirv-tools-opt"]},
+            "SPIRV-Tools-link": {"components": ["spirv-tools-link"]},
+        })
+        deps.generate()
+
+.. note::
+
+    ``cmake_file_names`` cannot be set with ``deps.set_property(..., build_context=True)`` for dependencies in the build context.
 
 
 Configuration
