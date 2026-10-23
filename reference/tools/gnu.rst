@@ -8,6 +8,7 @@ conan.tools.gnu
 
    gnu/autotoolsdeps
    gnu/autotoolstoolchain
+   gnu/gnutoolchain
    gnu/autotools
    gnu/makedeps
    gnu/pkgconfigdeps
