@@ -117,18 +117,17 @@ Build modules and ``CMAKE_MODULE_PATH``
 
 ``CMakeDeps`` prepends the package ``builddirs`` to ``CMAKE_MODULE_PATH`` every time a package is loaded with
 ``find_package()``. This means that a ``cmake_build_modules`` file can ``include()`` other ``.cmake`` files shipped in
-the same package **by name**, and it will work. ``CMakeConfigDeps`` does **not** do this, and this lack of parity is
-**intended, not a bug**. The ``builddirs`` are only added to ``CMAKE_MODULE_PATH`` globally, when the ``conan_toolchain.cmake``
-(through ``conan_cmakedeps_paths.cmake``) is loaded. If the consumer project later modifies or replaces ``CMAKE_MODULE_PATH``,
+the same package **by name**, and it will work. ``CMakeConfigDeps`` does **not** do this.
+The ``builddirs`` are only added to ``CMAKE_MODULE_PATH`` globally, when the ``conan_toolchain.cmake`` is loaded.
+If the consumer project later modifies or replaces ``CMAKE_MODULE_PATH``,
 for example with ``set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")``, the package ``builddirs`` are no longer there.
-Then ``include(mypkg_helper)`` either fails with ``include could not find requested file``, or, even worse, it silently
-includes a file with the same name from the consumer project.
+Then ``include(mypkg_helper)`` would fail with ``include could not find requested file``.
 
 Relying on ``CMAKE_MODULE_PATH`` to locate files from the same package is fragile, because it depends on what the
 consumer does with that variable. The upstream ``.cmake`` files of a package, and in particular those listed in
 ``cmake_build_modules``, should use `CMAKE_CURRENT_LIST_DIR <https://cmake.org/cmake/help/latest/variable/CMAKE_CURRENT_LIST_DIR.html>`_
-to ``include()`` the files next to them, as it is the way CMake documents to refer to files relative to the
-currently processed list file. For example:
+to ``include()`` the files next to them, `as documented in the CMake examples for configuration package creation <https://cmake.org/cmake/help/v4.5/manual/cmake-packages.7.html#creating-a-package-configuration-file>`_.
+For example:
 
 .. code-block:: cmake
 
