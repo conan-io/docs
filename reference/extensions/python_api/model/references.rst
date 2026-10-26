@@ -7,3 +7,8 @@ Reference models
 
 .. autoclass:: RecipeReference
     :members:
+
+.. _conan.api.model.PkgReference:
+
+.. autoclass:: PkgReference
+    :members:
