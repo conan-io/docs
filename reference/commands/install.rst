@@ -61,7 +61,7 @@ command line:
 
 
 When only ``--tool-requires`` arguments are provided, the ``[tool_requires]`` defined in the host profile
-are not applied to them, as those profile tool requirements could depend on the very tools being installed.
+are not installed, as they wouldn't be necessary to consume those installed tools.
 
 
 In the general case, it is recommended to use a ``conanfile`` instead of defining things in the command line.
