@@ -52,7 +52,7 @@ conf
 - ``tools.microsoft.msbuild:installation_path`` indicates the path to Visual Studio installation folder.
   For instance: ``C:\Program Files (x86)\Microsoft Visual Studio\2019\Community``, ``C:\Program Files (x86)\Microsoft Visual Studio 14.0``, etc.
 - ``tools.microsoft:winsdk_version`` defines the specific winsdk version in the vcvars command line.
-- ``tools.env.virtualenv:powershell`` generates an additional ``conanvcvars.ps1`` so it can be run from the Powershell console.
+- ``tools.env.virtualenv:powershell`` generates an additional ``conanvcvars.ps1`` for all packages, so it can be run from the Powershell console. The ``conanvcvars.ps1`` is always generated for the consumer (``conan install <path>``) and ``test_package``, but Conan only uses it in its own subprocesses if this conf is defined.
 
 Reference
 -----------
