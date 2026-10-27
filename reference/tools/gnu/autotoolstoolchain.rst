@@ -6,6 +6,11 @@ AutotoolsToolchain
 The ``AutotoolsToolchain`` is the toolchain generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
 
+.. warning::
+
+    ``AutotoolsToolchain`` and :ref:`GnuToolchain<conan_tools_gnu_gnutoolchain>` are mutually exclusive
+    alternatives. Do not use both in the same recipe: choose one or the other.
+
 This generator can be used by name in conanfiles:
 
 .. code-block:: python
