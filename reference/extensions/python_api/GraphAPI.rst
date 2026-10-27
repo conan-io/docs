@@ -8,7 +8,8 @@ Graph API
 .. note::
 
     Most methods below consume or produce a dependency graph object. This object is
-    :ref:`documented as opaque <reference_python_api_model_graph>`: it must not be inspected
+    :ref:`documented as opaque <reference_python_api_model_graph>`: unless explicitly shown
+    otherwise in the documentation of a specific API method, it must not be inspected
     or modified directly, and ``serialize()`` is its only method guaranteed to remain stable.
 
 .. currentmodule:: conan.api.subapi.graph

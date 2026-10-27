@@ -60,6 +60,10 @@ command line:
     $ conan install --requires=zlib/1.2.13 --tool-requires=ninja/1.11.0
 
 
+When only ``--tool-requires`` arguments are provided, the ``[tool_requires]`` defined in the host profile
+are not installed, as they wouldn't be necessary to consume those installed tools.
+
+
 In the general case, it is recommended to use a ``conanfile`` instead of defining things in the command line.
 
 
