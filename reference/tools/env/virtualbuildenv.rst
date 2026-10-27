@@ -91,8 +91,10 @@ will create the following files:
 
     To create ``.ps1`` files required for PowerShell, you need to set the
     ``tools.env.virtualenv:powershell`` configuration with the value of the PowerShell
-    executable (e.g., ``powershell.exe`` or ``pwsh``). Note that, setting it to ``True``
-    or ``False`` is deprecated as of Conan 2.11.0 and should no longer be used.
+    executable (e.g., ``powershell.exe`` or ``pwsh``). Note that setting it to ``True``
+    or ``False`` is no longer supported. The ``.ps1`` files are always generated, next to the ``.bat`` or ``.sh`` ones in
+    Windows, Linux and Mac, for the consumer (``conan install <path>``) and ``test_package``, but Conan only uses them for its own subprocesses,
+    like ``self.run()``, if this configuration is defined, otherwise it uses the ``.bat`` files.
 
 
 .. note::

@@ -89,10 +89,11 @@ files in the folder *build*. To do that, just run:
 
 .. note::
 
-    **PowerShell** users need to add ``--conf=tools.env.virtualenv:powershell=<executable>`` 
-    (e.g., ``powershell.exe`` or ``pwsh``) to the previous command to generate ``.ps1`` files 
-    instead of ``.bat`` files. Setting this configuration to ``True`` or ``False`` is deprecated 
-    as of Conan 2.11.0. 
+    **PowerShell** users will find the ``.ps1`` files generated next to the ``.bat`` (Windows) or ``.sh`` (Linux, Mac) ones
+    for the local ``conanfile``, in any platform (Windows, Linux and Mac). Conan itself always uses the ``.bat`` files in its subprocesses, unless
+    ``--conf=tools.env.virtualenv:powershell=<executable>`` (e.g., ``powershell.exe`` or ``pwsh``)
+    is defined, which makes it generate and use the ``.ps1`` files for all packages.
+    Setting this configuration to ``True`` or ``False`` is no longer supported.
 
     To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` 
     section of your profile. For detailed information, please refer to the 

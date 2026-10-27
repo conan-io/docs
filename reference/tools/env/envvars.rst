@@ -28,12 +28,18 @@ method.
 
 It will generate automatically a ``my_env_file.bat`` for Windows systems or ``my_env_file.sh`` otherwise.
 
-It is possible to opt-in to generate PowerShell ``.ps1`` scripts instead of ``.bat`` ones, 
-by using the configuration ``tools.env.virtualenv:powershell``. This configuration should 
-be set with the value corresponding to the desired PowerShell executable: 
-``powershell.exe`` for versions up to 5.1, and ``pwsh`` for PowerShell versions starting 
-from 7. Note that setting ``tools.env.virtualenv:powershell`` to ``True`` or ``False`` is 
-deprecated as of Conan 2.11.0.
+PowerShell ``.ps1`` scripts are also generated next to the ``.bat`` (Windows) or ``.sh`` (Linux, Mac and
+other platforms) ones, on all platforms (Windows, Linux and Mac), for the consumer
+(a local ``conanfile``, like in ``conan install .``) and for ``test_package``, so developers working natively
+in PowerShell can activate the environment. For other packages, the ``.ps1`` files are only generated if the
+configuration ``tools.env.virtualenv:powershell`` is defined. This configuration should
+be set with the value corresponding to the desired PowerShell executable:
+``powershell.exe`` for versions up to 5.1, and ``pwsh`` for PowerShell versions starting
+from 7. Setting ``tools.env.virtualenv:powershell`` to ``True`` or ``False`` is no longer
+supported (it was deprecated in Conan 2.11.0).
+
+Conan only uses the ``.ps1`` files when running subprocesses, like ``self.run()``, if
+``tools.env.virtualenv:powershell`` is defined. Otherwise, it always uses the ``.bat`` files.
 
 You can also include additional arguments in the ``tools.env.virtualenv:powershell``
 configuration. For example, you can set the value to ``powershell.exe -NoProfile`` or
