@@ -11,6 +11,11 @@ user experience, like the dict-like ``configure_args``, ``make_args`` and ``auto
 attribute to customize the generated environment. It will generate shell scripts containing environment variable definitions
 that the autotools build system can understand.
 
+.. warning::
+
+    ``GnuToolchain`` and :ref:`AutotoolsToolchain<conan_tools_gnu_autotoolstoolchain>` are mutually exclusive
+    alternatives. Do not use both in the same recipe: choose one or the other.
+
 This generator can be used by name in conanfiles:
 
 .. code-block:: python
