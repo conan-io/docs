@@ -47,7 +47,7 @@ It will generate the file ``conangnutoolchain.sh`` or ``conangnutoolchain.bat`` 
 
 .. code-block:: bash
 
-    $ conan install conanfile.py # default is Release
+    $ conan install # there is a conanfile here, default is Release
     $ source conangnutoolchain.sh
     # or in Windows
     $ conangnutoolchain.bat
