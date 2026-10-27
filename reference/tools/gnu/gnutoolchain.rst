@@ -57,7 +57,7 @@ It will generate either the ``conangnutoolchain.sh`` or ``conangnutoolchain.bat`
     # or in Windows
     $ conangnutoolchain.bat
 
-This launchers will append information to the ``CPPFLAGS``, ``LDFLAGS``, ``CXXFLAGS``,
+These launchers will append information to the ``CPPFLAGS``, ``LDFLAGS``, ``CXXFLAGS``,
 ``CFLAGS`` environment variables that translate the settings and options to the
 corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags,
 etc. It will also append the folder where the Conan generators are located to the
