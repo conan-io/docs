@@ -85,6 +85,8 @@ Generated files
   will be included by default by the ``conan_toolchain.cmake``, but it might also be useful in other tools like
   ``cmake-conan`` integration. This file will also contain other path variables such as ``CMAKE_VS_DEBUGGER_ENVIRONMENT``, ``CMAKE_PROGRAM_PATH``, ``CMAKE_LIBRARY_PATH``, etc., that help consumers
   to locate dependencies for different scenarios like runtime or with other CMake ``find_program()`` utilities.
+  It also prepends the package folders of the dependencies to ``CMAKE_PREFIX_PATH``, as a fallback for the cases
+  not covered by the ``<pkg>_DIR`` variables.
 
 
 Improvements over ``CMakeDeps``
