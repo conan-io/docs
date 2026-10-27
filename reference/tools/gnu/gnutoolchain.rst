@@ -48,7 +48,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 Generated files
 ---------------
 
-It will generate the file ``conangnutoolchain.sh`` or ``conangnutoolchain.bat`` files:
+It will generate either the ``conangnutoolchain.sh`` or ``conangnutoolchain.bat`` files:
 
 .. code-block:: bash
 
