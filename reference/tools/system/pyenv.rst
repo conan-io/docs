@@ -90,3 +90,49 @@ If we run a ``conan build`` we can see how our Python package is installed when 
     conanfile.py (pip_install/0.1): Calling build()
     conanfile.py (pip_install/0.1): RUN: meson --version
     1.9.1
+
+
+.. _conan_tools_system_pyenv_cmake:
+
+Using the PyEnv Python from CMake
+---------------------------------
+
+Calling ``PyEnv.generate()`` adds the **bin** (or **Scripts** on Windows) folder of the virtual environment to the ``PATH``
+of the Conan Environment. This is enough to run the installed tools from a ``self.run()`` call, but it is **not always enough**
+for CMake's ``find_package(Python)``:
+
+- CMake's `FindPython <https://cmake.org/cmake/help/latest/module/FindPython.html>`_ does not always prioritize the ``python``
+  found in the ``PATH``, so it may prefer a different Python installation.
+- The ``VirtualBuildEnv`` is generated automatically by Conan *after* the ``generate()`` method. If the profile modifies the ``PATH``
+  with something like ``[buildenv]`` ``PATH=+(path)C:/Python313``, that folder will have a higher priority than the virtual environment.
+  To avoid it, generate the ``VirtualBuildEnv`` explicitly **before** calling ``PyEnv.generate()``.
+
+To make sure that CMake uses the Python from the virtual environment, pass its path explicitly with
+:ref:`CMakeToolchain<conan_tools_cmaketoolchain>`, using the ``env_exe`` attribute of ``PyEnv``:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain
+    from conan.tools.env import VirtualBuildEnv
+    from conan.tools.system import PyEnv
+
+
+    class Pkg(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            # Generate it first, so the PyEnv path has priority over the profile [buildenv] PATH
+            buildenv = VirtualBuildEnv(self)
+            buildenv.generate()
+
+            pyenv = PyEnv(self)
+            pyenv.install(["html5lib~=1.0"])
+            pyenv.generate()
+
+            tc = CMakeToolchain(self)
+            tc.cache_variables["Python_EXECUTABLE"] = pyenv.env_exe
+            tc.generate()
+
+Alternatively, ``Python_ROOT_DIR`` can be set to ``pyenv.env_dir``, the root folder of the virtual environment.
