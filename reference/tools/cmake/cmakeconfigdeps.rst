@@ -164,6 +164,35 @@ the ``INTERFACE_SOURCES`` property, to avoid the same sources being unexpectedly
 paths of the dependency graph.
 
 
+Filtering of the target information based on requires traits
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Since Conan 2.34, ``CMakeConfigDeps`` filters the information injected in the generated targets according to the
+:ref:`traits<reference_conanfile_methods_requirements>` (``headers``, ``libs``, ``run``...) of the
+requirement as seen from the consumer, so that consumers do not get compile and link information from dependencies
+that they do not really need to compile or link against. This is the same kind of filtering that ``CMakeDeps`` does.
+
+- If ``headers=False``, the header-related information is not injected: ``includedirs`` and ``defines``.
+- If ``headers=False`` and ``libs=False``, the remaining compile and link information is not injected either:
+  ``cxxflags``, ``cflags``, ``sharedlinkflags``, ``exelinkflags`` and ``system_libs``. This is typically the case
+  of a requirement that is only needed at runtime, like ``run=True``.
+- If ``libs=False``, but ``headers=True``, the ``system_libs`` and the link flags of the dependency are still
+  injected.
+- For Apple ``package_framework``, the framework information is only injected if ``headers=True`` or ``libs=True``.
+
+Some information is **not** filtered by the traits:
+
+- The target is always declared, even if it ends up with no compile or link information, so that it can still be
+  depended upon by other targets.
+- The ``IMPORTED_LOCATION`` (and ``IMPORTED_IMPLIB``) and the type of the library targets are always defined,
+  even for ``libs=False``. For example, if ``engine`` is a shared library that privately links ``matrix``
+  (``transitive_libs=False``), an application requiring ``engine`` doesn't link ``matrix`` directly, but the Linux linker
+  still needs to locate ``libmatrix.so`` when linking against ``libengine.so``, so the location of ``matrix`` is
+  necessary.
+- The ``cpp_info.sources`` are not filtered by ``headers`` or ``libs``; they follow the direct dependency rule
+  explained above.
+
+
 .. _CMakeConfigDeps Properties:
 
 Properties
