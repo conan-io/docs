@@ -28,7 +28,8 @@ method.
 
 It will generate automatically a ``my_env_file.bat`` for Windows systems or ``my_env_file.sh`` otherwise.
 
-PowerShell ``.ps1`` scripts are also generated, in addition to the ``.bat`` ones, for the consumer
+PowerShell ``.ps1`` scripts are also generated next to the ``.bat`` (Windows) or ``.sh`` (Linux, Mac and
+other platforms) ones, on all platforms (Windows, Linux and Mac), for the consumer
 (a local ``conanfile``, like in ``conan install .``) and for ``test_package``, so developers working natively
 in PowerShell can activate the environment. For other packages, the ``.ps1`` files are only generated if the
 configuration ``tools.env.virtualenv:powershell`` is defined. This configuration should
