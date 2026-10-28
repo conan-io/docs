@@ -3,6 +3,51 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.34.0 (28-Oct-2026)
+--------------------
+
+- Feature: Define `/MP` in `CMakeToolchain` for `clang-cl` with Visual Studio generators (`ClangCL` toolset), like `msvc`. `#20439 <https://github.com/conan-io/conan/pull/20439>`_
+- Feature: Reduce local cache sqlite3 DB calls (33% fewer for regular installs with cached packages). `#20434 <https://github.com/conan-io/conan/pull/20434>`_
+- Feature: Simplify the build step terminal output, removing duplicated package references. `#20426 <https://github.com/conan-io/conan/pull/20426>`_
+- Feature: Add ``CMAKE_PREFIX_PATH`` as fallback to ``CMakeConfigDeps`` for cases beyond the ``<pkg>_DIR`` variable. `#20420 <https://github.com/conan-io/conan/pull/20420>`_ . Docs `here <https://github.com/conan-io/docs/pull/4569>`__
+- Feature: Pass original URLs to backup source remotes in the `X-Conan-Origin-Urls` header. `#20385 <https://github.com/conan-io/conan/pull/20385>`_ . Docs `here <https://github.com/conan-io/docs/pull/4564>`__
+- Feature: Update `conan new bazel_lib` and `conan new bazel_exe` templates to Bazel 7. `#20367 <https://github.com/conan-io/conan/pull/20367>`_ . Docs `here <https://github.com/conan-io/docs/pull/4565>`__
+- Feature: Add a ``command_alias.conf`` file to define command aliases and shortcuts without writing a custom command. `#20365 <https://github.com/conan-io/conan/pull/20365>`_
+- Feature: Support the new CPS ``dyld_requires`` (CMake>=4.4) for transitive shared libraries on Linux. `#20362 <https://github.com/conan-io/conan/pull/20362>`_
+- Feature: Add `cmake_file_names` dict property to `CMakeConfigDeps` to generate several CMake CONFIG files per package. `#20298 <https://github.com/conan-io/conan/pull/20298>`_ . Docs `here <https://github.com/conan-io/docs/pull/4568>`__
+- Feature: Add an optional `components` argument to `aggregated_components()` to aggregate only the given components. `#20298 <https://github.com/conan-io/conan/pull/20298>`_ . Docs `here <https://github.com/conan-io/docs/pull/4568>`__
+- Feature: Always generate ``.ps1`` environment launchers, alongside the ``.bat``/``.sh`` ones, for the consumer, editables and ``test_package``. `#19649 <https://github.com/conan-io/conan/pull/19649>`_ . Docs `here <https://github.com/conan-io/docs/pull/4573>`__
+- Fix: Clarify in the ``PackagesList.items()`` docstring that it only returns revision-specific information. `#20432 <https://github.com/conan-io/conan/pull/20432>`_
+- Fix: Add docstrings to the ``PkgReference`` class of the Python API. `#20431 <https://github.com/conan-io/conan/pull/20431>`_ . Docs `here <https://github.com/conan-io/docs/pull/4570>`__
+- Fix: Remove the legacy warning about ConanCenter being frozen for Conan 1 clients. `#20425 <https://github.com/conan-io/conan/pull/20425>`_
+- Fix: Remove the ``python-dateutil`` dependency for Python>=3.11. `#20419 <https://github.com/conan-io/conan/pull/20419>`_
+- Fix: Resolve ``LocalAPI.editable_add`` relative ``output_folder`` against the ``cwd`` argument. `#20416 <https://github.com/conan-io/conan/pull/20416>`_
+- Fix: Make ``conan cache clean --backup-sources`` only clean the backup sources of the selected recipes. `#20415 <https://github.com/conan-io/conan/pull/20415>`_
+- Fix: Allow several negated patterns, and mixing them with inclusions, in remote ``--allowed-packages``. `#20412 <https://github.com/conan-io/conan/pull/20412>`_
+- Fix: Avoid a ``VirtualRunEnv`` generation crash with ``win_bash=True`` when cross-building from Linux to Windows. `#20407 <https://github.com/conan-io/conan/pull/20407>`_
+- Fix: Correct Python API docstrings for ``ListAPI``, ``CacheAPI`` and other subapis that did not match their behavior. `#20405 <https://github.com/conan-io/conan/pull/20405>`_
+- Fix: Correct the ``ListAPI.latest_recipe_revision`` docstring, as it always raises if the reference is not found. `#20400 <https://github.com/conan-io/conan/pull/20400>`_
+- Fix: Report a proper error for non-integer ``--lru`` time values. `#20399 <https://github.com/conan-io/conan/pull/20399>`_
+- Fix: Avoid duplicating `tools.build:sharedlinkflags` from `conf` in `BazelToolchain`. `#20390 <https://github.com/conan-io/conan/pull/20390>`_
+- Fix: Join multiple SBOM license expressions with ``AND`` to comply with the CycloneDX standard. `#20382 <https://github.com/conan-io/conan/pull/20382>`_
+- Fix: Allow running `conan remote logout` for disabled remotes. `#20381 <https://github.com/conan-io/conan/pull/20381>`_
+- Fix: Replace stale ``CONAN_RUNTIME_LIB_DIRS`` entries in ``CMakeConfigDeps`` when installing a new package revision. `#20378 <https://github.com/conan-io/conan/pull/20378>`_
+- Fix: Raise an error for ``--requires=pkg/version@_``, an undocumented and unsupported Conan 1 legacy syntax. `#20371 <https://github.com/conan-io/conan/pull/20371>`_
+- Fix: Remove Conan 1.X legacy ``alias`` (undocumented and unsupported) code. `#20370 <https://github.com/conan-io/conan/pull/20370>`_
+- Fix: Make the ``workspace`` experimental warning skippable with ``core:skip_warnings``. `#20369 <https://github.com/conan-io/conan/pull/20369>`_
+- Fix: Add deprecation warnings for Bazel 6 support in the `BazelDeps` generator. `#20367 <https://github.com/conan-io/conan/pull/20367>`_ . Docs `here <https://github.com/conan-io/docs/pull/4565>`__
+- Fix: Filter ``CMakeConfigDeps`` target data based on require traits, aligned with ``CMakeDeps``. `#20277 <https://github.com/conan-io/conan/pull/20277>`_ . Docs `here <https://github.com/conan-io/docs/pull/4572>`__
+- Fix: ``tools.env.virtualenv:powershell`` no longer replaces the ``.bat``/``.sh`` launchers. ``self.run()`` only uses ``.ps1`` launchers when this conf is defined. `#19649 <https://github.com/conan-io/conan/pull/19649>`_ . Docs `here <https://github.com/conan-io/docs/pull/4573>`__
+- Bugfix: Avoid accumulating variables when calling `GnuToolchain._environment` several times. `#20446 <https://github.com/conan-io/conan/pull/20446>`_
+- Bugfix: Avoid internal ``rmdir`` failures when removing Windows folders with read-only permissions. `#20440 <https://github.com/conan-io/conan/pull/20440>`_
+- Bugfix: Do not install host profile ``[tool_requires]`` in :command:`conan install` with only ``--tool-requires`` arguments. `#20422 <https://github.com/conan-io/conan/pull/20422>`_ . Docs `here <https://github.com/conan-io/docs/pull/4571>`__
+- Bugfix: Do not remove pre-existing recipe revisions in ``ReportAPI.diff``. `#20417 <https://github.com/conan-io/conan/pull/20417>`_
+- Bugfix: Make ``AuditAPI.auth_provider`` receive a provider name instead of a provider object, as documented. `#20414 <https://github.com/conan-io/conan/pull/20414>`_
+- Bugfix: Do not write `--dynamic_mode=off` in `BazelToolchain` when the recipe has no `shared` option. `#20390 <https://github.com/conan-io/conan/pull/20390>`_
+- Bugfix: Avoid random ``dictionary changed size during iteration`` errors in uploads with ``core.upload:parallel``. `#20389 <https://github.com/conan-io/conan/pull/20389>`_
+- Bugfix: Avoid HTTP header cross-pollution between consecutive calls to the backup sources server. `#20386 <https://github.com/conan-io/conan/pull/20386>`_
+- Bugfix: Use ``tools.microsoft.msbuild:max_cpu_count`` for the ``-m`` argument in ``CMakeToolchain`` Visual Studio presets. `#20360 <https://github.com/conan-io/conan/pull/20360>`_
+
 2.33.0 (29-Sept-2026)
 ---------------------
 
