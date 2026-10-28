@@ -1,0 +1,92 @@
+.. _conan_tools_cmake_helper:
+
+CMake
+=====
+
+The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
+calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
+``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` (from the generator ``CMakeToolchain``) to the ``configure()`` call,
+as well as other possible arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a
+generated ``CMakePresets.json`` file.
+
+The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
+when a package is being built directly by Conan (create, install)
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            tc.generate()
+            deps = CMakeDeps(self)
+            deps.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+**Experimental** feature.  ``CMake.configure()``, ``CMake.build()`` and ``CMake.install()`` methods have the **subfolder** parameter in case you have
+more than one ``CMakeLists.txt`` in different folders.
+This feature allows you to call the **configure** **build** and **install** method of each **CMakeLists.txt**
+separately and without mixing the generated files and artifacts, also creating these folders in the
+**build folder** and **package folder**.
+
+In the following example, we can see what it would look like if we had two different **CMakeLists.txt**
+(**cmake_1/CMakeLists.txt** and **cmake_2/CMakeLists.txt**) in the **folder1** and **folder2** folders.
+
+.. code-block:: python
+
+    def build(self):
+        cmake = CMake(self)
+
+        # Configure and build source_folder/cmake_1/CMakeLists.txt in folder1
+        cmake.configure(build_script_folder="cmake_1", subfolder="folder1")
+        cmake.build(subfolder="folder1")
+
+        # Configure and build source_folder/cmake_2/CMakeLists.txt in folder2
+        cmake.configure(build_script_folder="cmake_2" subfolder="folder2")
+        cmake.build(subfolder="folder2")
+
+Reference
+---------
+
+.. currentmodule:: conan.tools.cmake.cmake
+
+.. autoclass:: CMake
+    :members:
+
+
+conf
+^^^^
+
+The ``CMake()`` build helper is affected by these ``[conf]`` variables:
+
+- ``tools.build:verbosity`` will accept one of ``quiet`` or ``verbose`` to be passed to the ``CMake.build()`` command,
+  when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
+  an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
+
+- ``tools.compilation:verbosity`` will accept one of ``quiet`` or ``verbose`` to be passed to CMake,
+  which sets ``-DCMAKE_VERBOSE_MAKEFILE`` if ``verbose``
+
+- ``tools.build:jobs`` argument for the ``--jobs`` parameter when running Ninja generator.
+
+- ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
+  ``MSBuild``. If ``max_cpu_count=0``, then it will use ``/m`` without arguments, which means use all available cpus.
+
+- ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
+
+- ``tools.cmake:ctest_args`` (Since Conan 2.23.0) will inject a list of arguments to the ``CMake.ctest()`` runner. For example, ``tools.cmake:ctest_args=["--debug", "--output-junit myfile"]`` will add these arguments to the ctest command.
+
+- ``tools.cmake:install_strip`` (**deprecated** use ``tools.build:install_strip``) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
+
+- ``tools.build:install_strip`` (Since Conan 2.18.0) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
