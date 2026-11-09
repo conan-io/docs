@@ -23,6 +23,32 @@ respectively, resolved by the graph.
 
 Remember to enable the option if you wish to add any of them to your SBOM!
 
+Customizing components
+^^^^^^^^^^^^^^^^^^^^^^
+
+Both functions accept an optional ``extra_info`` dictionary to enrich SBOM
+components with extra CycloneDX fields (for example ``description``,
+``supplier``, ``properties``, ``cpe``). Keys can be the package name, ``name/version``,
+the full Conan reference, the purl, or the ``bom-ref``. Matching values are
+merged in that order.
+
+.. code-block:: python
+
+    from conan.tools.sbom import cyclonedx_1_6
+
+    sbom = cyclonedx_1_6(
+        conanfile,
+        extra_info={
+            "zlib": {
+                "description": "Compression library",
+                "supplier": {"name": "Jean-loup Gailly and Mark Adler"},
+            },
+            "zlib/1.2.11": {
+                "cpe": "cpe:2.3:a:gnu:zlib:1.2.11:*:*:*:*:*:*:*",
+            },
+        },
+    )
+
 .. seealso::
 
     - :ref:`Software Bills of Materials (SBOM) <security_sboms>`.
