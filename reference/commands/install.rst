@@ -41,9 +41,9 @@ or ``conanfile.txt``, containing definitions of the dependencies and generators 
     $ conan install myfolder  # there is a conanfile in "myfolder" folder
 
 
-Even if it is possible to use a custom name, in the general case, it is recommended to use the default ``conanfile.py`` 
-name, located in the repository root, so users can do a straightforward ``git clone ... `` + ``conan install .``
-    
+Even if it is possible to use a custom name, in the general case, it is recommended to use the default ``conanfile.py``
+name, located in the repository root, so users can do a straightforward ``git clone ...`` + ``conan install .``
+
 
 The other possibility is to not have a ``conanfile`` at all, and define the requirements to be installed directly in the
 command line:
