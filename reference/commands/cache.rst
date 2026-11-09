@@ -233,6 +233,9 @@ The ``conan cache backup-upload`` will upload all source backups present in the 
 (excluding those which have been fetched from the excluded urls listed in the ``core.sources:exclude_urls`` conf),
 regardless of which package they belong to, if any.
 
+Read more in :ref:`this example<examples_commands_backup_sources>`, on how to populate the cache with the sources of
+a dependency graph or a recipe, and then back them up.
+
 
 
 conan cache save
