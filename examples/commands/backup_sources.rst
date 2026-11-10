@@ -85,6 +85,18 @@ the references and original URLs that the file belongs to:
       the conf pattern syntax, like ``-c libiconv/*:tools.build:download_source=True``.
     - Sources that were fetched from a URL in ``core.sources:exclude_urls`` are not uploaded.
 
+.. note::
+
+    The ``source()`` method is not executed for the packages whose binaries are skipped from the graph, as they are
+    not necessary in the current configuration (for example the dependencies of a shared library that are not
+    needed by its consumers). The sources of those packages will not be downloaded, so they will not be backed up either.
+    To make sure that the sources of **all** the packages in the graph are retrieved, disable the binaries skip with the
+    ``tools.graph:skip_binaries=False`` conf:
+
+    .. code-block:: bash
+
+        $ conan graph info --requires=libiconv/1.17 -c tools.build:download_source=True -c tools.graph:skip_binaries=False
+
 
 Backing up the sources of a single recipe
 -----------------------------------------
