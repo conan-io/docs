@@ -160,6 +160,15 @@ All the values will be interpreted by Conan as the result of the python built-in
     ``[conf]`` section (``eval()`` will return the string ``1.10``), but this typically
     does not survive shell quoting when passed on the command line with ``-c``.
 
+.. note::
+
+    Using the ``None`` value in ``[conf]`` (for example ``user.myconf:value=None``) is not recommended.
+    In Conan, ``None`` represents that a configuration is **not defined**, so it is the value that
+    ``conf.get()`` returns when nothing was set, and a ``None`` value is indistinguishable from
+    a non-defined one. If you want to explicitly unset a configuration value, for example to remove
+    a value defined in a lower-priority profile or in the *global.conf*, use the ``=!`` unset operator
+    instead, see :ref:`configuration data operators<configuration_data_operators>`.
+
 
 .. _configuration_data_operators:
 
