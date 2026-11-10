@@ -9,8 +9,13 @@ It has some built-in logic implemented, but can be customized.
 
 The interface is a single function called ``def compatibility(conanfile)`` that receives a single ``conanfile``
 object as argument. Its return will be equal to the ``compatibility()`` recipe method, an ordered list of
-variations over ``settings``, ``options`` that is considered to be binary compatible. Conan will check
-that list in order for binary existence until one binary is found.
+variations over ``settings``, ``options`` that is considered to be binary compatible. 
+
+.. warning::
+
+Conan will check that list in order for binary existence until one binary is found.
+
+
 The following would be valid syntax (but not an useful or working one, as it will fail in Windows, for example):
 
 
