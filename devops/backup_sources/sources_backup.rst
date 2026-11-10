@@ -174,6 +174,8 @@ and future source downloads of this recipe will use the newly updated contents w
 
 
 In case there's a need to upload backups for sources not linked to any package, or for packages that are already on the remote and would therefore be skipped during upload, the :command:`conan cache backup-upload` command can be used to address this scenario.
+See :ref:`this example<examples_commands_backup_sources>` for how to back up the sources of a dependency graph or a recipe
+without building any package, using ``conan graph info -c tools.build:download_source=True`` or :command:`conan source`.
 
 .. _backup_sources_setup_remote:
 
