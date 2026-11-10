@@ -49,6 +49,8 @@ even if there are binaries available, without needing to build anything. This ca
 
     $ conan graph info --requires=libiconv/1.17 -c tools.build:download_source=True
 
+
+Recall that the ``conan graph info`` can also work with a ``conanfile.txt/.py`` instead of a ``--requires`` argument.
 Once the sources are downloaded to the Conan cache (to the ``core.sources:download_cache`` folder),
 we can upload all of them to the backup server:
 
@@ -95,6 +97,8 @@ the references and original URLs that the file belongs to:
 
     .. code-block:: bash
 
+        # This will only work for packages in the "host" context, not build tools
+        # Use "-c:a" if you want to download the sources for "tool-requires" too
         $ conan graph info --requires=libiconv/1.17 -c tools.build:download_source=True -c tools.graph:skip_binaries=False
 
 
