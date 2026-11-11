@@ -11,7 +11,7 @@ The interface is a single function called ``def compatibility(conanfile)`` that 
 object as argument. Its return will be equal to the ``compatibility()`` recipe method, an ordered list of
 variations over ``settings``, ``options`` that is considered to be binary compatible. 
 
-.. warning::
+.. note::
 
 Conan will check that list in order for binary existence until one binary is found.
 
