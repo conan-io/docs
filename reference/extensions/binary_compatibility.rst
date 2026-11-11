@@ -13,7 +13,7 @@ variations over ``settings``, ``options`` that is considered to be binary compat
 
 .. note::
 
-Conan will check that list in order for binary existence until one binary is found.
+    Conan will check that list in order for binary existence until one binary is found.
 
 
 The following would be valid syntax (but not an useful or working one, as it will fail in Windows, for example):
