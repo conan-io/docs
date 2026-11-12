@@ -1,0 +1,225 @@
+.. _b2_generator:
+
+`B2` [EXPERIMENTAL]
+===================
+
+.. container:: out_reference_box
+
+    This is the reference page for the ``B2``, aka *Boost Build*, generator. It is
+    a multi-generator to match the multi-build nature of ``B2``.
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Usage
+-----
+
+.. code-block:: bash
+
+    # Use release dependencies:
+    $ conan install -g b2 -s build_type=Release ...
+    # Optionally, also use debug dependencies:
+    $ conan install -g b2 -s build_type=Debug ...
+    # And so on for any number of configurations you need.
+
+The commands will generate 3 files:
+
+- ``conanbuildinfo.jam``: Which includes the other two, and enables its use.
+- ``conanbuildinfo-XXX.jam``: Variables and targets adjusted only for
+  build_type Release, where ``XXX`` is a key indicating the full variation
+  built.
+- ``conanbuildinfo-YYY.jam``: Variables and targets adjusted only for
+  build_type Debug, where ``YYY`` is a key indicating the full variation
+  built.
+
+.. _conanbuildinfo_jam_projects:
+
+Sub-projects in conanbuildinfo-XXX.jam
+--------------------------------------
+
+The ``B2`` generator defines sub-projects relative to the location of the
+``B2`` project you generate the conan configuration. For each package a
+sub-project with the package name is created that contains targets you can
+use as ``B2`` sources in your projects.
+
+For example with this ``conanfile.txt``:
+
+.. code-block:: text
+
+    [requires]
+    clara/[>=1.1.0]@bincrafters/stable
+    boost_predef/[>=1.66.0]@bincrafters/stable
+    zlib/[>=1.2.11]@conan/stable
+
+    [generators]
+    b2
+
+You would get three sub-projects defined relative to the ``conanfile.txt``
+location:
+
+.. code-block:: text
+
+    project clara ;
+    project boost_predef ;
+    project zlib ;
+
+For a root level project those could be referenced with an absolute project
+path, for example ``/clara``. Or you can use relative project paths as needed,
+for example ``../clara`` or ``subproject/clara``.
+
+.. _conanbuildinfo_jam_targets:
+
+Targets in conanbuildinfo-XXX.jam
+---------------------------------
+
+For each package a target in the corresponding package subproject is created
+that is specific to the variant built. There is also a general ``libs`` target
+that is an alias to all the package library targets. For header only packages
+this ``libs`` target would not contain references to the package libraries
+as they do not exist. But it would still contain the rest of the Usage
+requirements for you to make use of the headers in that package. For example,
+for the above ``conanfile.txt`` the targets would be..
+
+``clara subproject``:
+
+.. code-block:: text
+
+    alias libs
+        : # source, none as it's header only
+        : # requirements specific to the build
+          ...
+        : # default-build
+        : # usage-requirements
+          <include>/absolute/path/to/conan/package/include
+          <define>...
+          <cflags>...
+          <cxxflags>...
+          <link>shared:<linkflags>...
+        ;
+
+Where ``...`` contains references to the variant specific constants. The target
+for ``boost_predef`` is equivalent as that's also a header only library. For
+``libz`` it contains a built linkable library and hence it has additional
+targets for that.
+
+``libz subproject``:
+
+.. code-block:: text
+
+    alias z
+        : # source, no source as it's a searched pre-built library
+        : # requirements
+          <name>z
+          <search>/absolute/path/to/conan/package/lib
+          # rest of the requirements specific to the build
+        : # default-build
+        : # usage-requirements
+          <include>/abolute/path/to/conan/package/include
+          <define>...
+          <cflags>...
+          <cxxflags>...
+          <link>shared:<linkflags>...
+        ;
+
+    alias libs
+        : # source
+          z
+        : # requirements specific to the build
+          ...
+        : # default-build
+        : # usage-requirements
+          <include>/absolute/path/to/conan/package/include
+          <define>...
+          <cflags>...
+          <cxxflags>...
+          <link>shared:<linkflags>...
+        ;
+
+.. _conanbuildinfo_jam_variables:
+
+Constants in conanbuildinfo-XXX.jam
+-----------------------------------
+
+This generator also defines constants, and path constants, in the project
+where the conanfile.txt is located. The constants define variant specific
+variables for all the packages and a transitive ``conan`` set of constants
+for all the packages.
+
+- **Per package constants**
+
+For each requirement ``conanbuildinfo-XXX.cmake`` file declares the following
+constants. ``variation`` is the name of the package and variation. That
+``YYY`` variation takes the form of a comma separated list of: package name,
+address-model, architecture, target-os, toolset with version, and variant
+(``debug``, ``release``, ``relwithdebinfo``, and ``minsizerel``). All are lower case and use
+the values of the corresponding ``B2`` features. For example a ``boost_predef``
+package dependency when building with apple-clang 9.0 and debug would be:
+``boost_predef,64,x86,darwin,clang-9.0,debug``.
+
+
++--------------------------------+-------------------------------------------+
+| NAME                           | VALUE                                     |
++================================+===========================================+
+| rootpath(variation)            | Abs path to root package folder.          |
++--------------------------------+-------------------------------------------+
+| includedirs(variation)         | Header's folders                          |
++--------------------------------+-------------------------------------------+
+| libdirs(variation)             | Library folders (default {rootpath}/lib)  |
++--------------------------------+-------------------------------------------+
+| defines(variation)             | Library defines                           |
++--------------------------------+-------------------------------------------+
+| cppflags(variation)            | CXX flags                                 |
++--------------------------------+-------------------------------------------+
+| sharedlinkflags(variation)     | Shared link flags                         |
++--------------------------------+-------------------------------------------+
+| cflags(variation)              | C flags                                   |
++--------------------------------+-------------------------------------------+
+| requirements(variation)        | B2 requirements                           |
++--------------------------------+-------------------------------------------+
+| usage-requirements(variation)  | B2 usage requirements                     |
++--------------------------------+-------------------------------------------+
+
+Both the ``requirements`` and ``usage-requirements`` are synthesized from the
+other constants.
+
+- **Global declared constants**
+
+The generator also defines a corresponding set of constants that aggregate
+the values of all the package requirements. The constants for this are the same
+as the package-specific ones but with "conan" as the name of the project.
+
+- **Constants from user_info**
+
+If any of the requirements is filling the user_info object in the package_info
+method a set of constants will be declared following this naming:
+
++--------------------------------+--------------------------------------------+
+| NAME                           | VALUE                                      |
++================================+============================================+
+| user(name,variation)           | User declared value                        |
++--------------------------------+--------------------------------------------+
+
+``variation`` is the package and variant as above and ``name`` the variable
+name in lower case. For example:
+
+.. code-block:: python
+
+
+   class MyLibConan(ConanFile):
+       name = "MyLib"
+       version = "1.6.0"
+
+       # ...
+
+       def package_info(self):
+           self.user_info.var1 = 2
+
+
+When other library requires ``MyLib`` and uses the ``B2`` generator:
+
+**conanbuildinfo-XXX.jam**:
+
+.. code-block:: text
+
+    constant user(var1,mylib,...) : "2" ;
