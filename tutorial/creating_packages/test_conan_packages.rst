@@ -160,6 +160,10 @@ test<reference_commands>` command:
 As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
 
+Note that the ``gtest`` test requirement of ``hello/1.0`` is marked as ``Skip``: as the ``hello/1.0``
+binary already exists in the cache and it doesn't need to be built from source, the ``gtest`` binary is not needed
+at all, so it is not downloaded. See :ref:`skipped binaries<reference_binary_model_skipped_binaries>` for more information.
+
 .. seealso::
 
     - `JFrog Academy Conan 2 Essentials Module 2, Lesson 12: Testing Conan Packages <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__

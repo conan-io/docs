@@ -273,6 +273,12 @@ The possible values are:
                                  compatibility.py)
 
 
+Note that ``--build=missing`` (and ``--build=missing:[pattern]``) will only build the missing binaries that
+are actually necessary. Binaries that are not needed, for example a static library that has already been linked
+into a shared library or application whose binary exists, are skipped, and they will not be built even if they are
+missing. Packages explicitly forced with ``--build=[pattern]`` will always be built. See
+:ref:`skipped binaries<reference_binary_model_skipped_binaries>` for more information.
+
 The ``--build=never`` policy can be used to force never building from source, even for package recipes
 that define the ``build_policy = "missing"`` policy.
 

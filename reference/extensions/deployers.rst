@@ -50,7 +50,8 @@ See a full example of the usage of ``full_deploy`` deployer in :ref:`examples_ex
 
     **Editable packages and skipped binaries**
 
-    - Dependencies whose ``package_folder`` is ``None`` (for example, skipped binaries that are not necessary) are not deployed.
+    - Dependencies whose ``package_folder`` is ``None`` (for example, :ref:`skipped binaries<reference_binary_model_skipped_binaries>`
+      that are not necessary) are not deployed. Use ``-c tools.graph:skip_binaries=False`` if you need to deploy them too.
     - Dependencies in :ref:`editable mode<editable_packages>` are **not** skipped. Their ``package_folder`` is the local project root
       folder, so the whole contents of that folder (sources, build outputs, etc.) will be copied to the deployed folder.
       This is generally harmless, but it is usually not what is wanted, and the general recommendation is to not deploy editable packages.

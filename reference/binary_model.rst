@@ -16,5 +16,6 @@ Finally, the default binary compatibility model will be described, and how it ca
     binary_model/package_id
     binary_model/settings_and_options
     binary_model/dependencies
+    binary_model/skipped_binaries
     binary_model/extending
     binary_model/custom_compatibility

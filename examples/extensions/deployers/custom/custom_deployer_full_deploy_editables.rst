@@ -7,7 +7,8 @@ The built-in :ref:`full_deploy<reference_extensions_deployer_full_deploy>` deplo
 dependency to the deployer output folder. This is what it does with the different kinds of dependencies:
 
 - Packages in the Conan cache: the package contents are copied.
-- Dependencies with ``package_folder=None``, which happens when the binary is skipped because it is not necessary: they are
+- Dependencies with ``package_folder=None``, which happens when the binary is
+  :ref:`skipped because it is not necessary<reference_binary_model_skipped_binaries>`: they are
   not deployed, as there is no folder to copy.
 - Packages in :ref:`editable mode<editable_packages>`: the ``package_folder`` is the local project root folder, where
   the ``conanfile.py`` of the editable is. There is no actual "package" there, but ``full_deploy`` copies the whole folder, including

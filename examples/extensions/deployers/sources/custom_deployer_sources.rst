@@ -99,3 +99,4 @@ under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_co
 
    If your custom deployer needs access to the full dependency graph, including those libraries that might be skipped,
    use the ``tools.graph:skip_binaries=False`` conf. This is useful for collecting, for example, all the licenses in your graph.
+   See :ref:`skipped binaries<reference_binary_model_skipped_binaries>` for more information.

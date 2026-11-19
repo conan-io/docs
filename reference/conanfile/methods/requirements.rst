@@ -103,7 +103,8 @@ when we want to use different versions of the same package during the build.
    - Changing that default visibility can create different issues and problems if not handle properly.
    - It is not recommended nor necessary to define ``visible=False`` for shared libraries packages that
      requires other static library packages, or similar C, C++ libraries usages, the default Conan behavior will already skip downloading
-     that transitive static library if not needed and will not propagate downstream the linkage requirements.
+     that transitive static library if not needed and will not propagate downstream the linkage requirements
+     (see :ref:`skipped binaries<reference_binary_model_skipped_binaries>`).
      In general, you can use the default ``visible=True`` for most regular ``requires()`` dependencies.
    - Using ``visible=False`` in regular ``requires`` must guarantee complete API and ABI encapsulation.
      If those are not met, issues from compilation errors, to linkage errors, to runtime errors can happen.
@@ -257,7 +258,8 @@ For example if a ``package_type = "application"`` package that contains an execu
 that is a ``package_type = "static-library"`` (or a regular library, but with option ``shared=False``), then, installing the
 application package binary doesn't require the binaries of the static libraries dependencies to work. Conan will then "skip"
 the download of those binaries, saving the time and transfer cost of such download and installation. These binaries are 
-marked as "Skipped binaries" in the Conan commands output.
+marked as "Skipped binaries" in the Conan commands output. See :ref:`skipped binaries<reference_binary_model_skipped_binaries>`
+for a full explanation of when Conan skips binaries.
 
 The ``tools.graph:skip_binaries`` conf can change the default behavior and if ``False`` it will avoid skipping binaries, which 
 can be useful in some scenarios. 

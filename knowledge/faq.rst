@@ -75,6 +75,24 @@ overcome this error:
 
 
 
+.. _faq_skipped_binaries:
+
+Why are some dependencies binaries skipped and not downloaded or built?
+-----------------------------------------------------------------------
+
+When installing dependencies, it is possible to see some packages listed as "Skipped host binaries",
+"Skipped build binaries" or ``Skip``. This is not an error. Conan computes the complete dependency graph, but only
+downloads, builds and installs the binaries that are actually necessary. For example, a static library that has been
+linked into a shared library or an application is no longer necessary to use that shared library or application,
+and the ``tool_requires`` and ``test_requires`` of a package are only necessary if that package is built from source.
+
+This also means that a missing binary that is skipped will not raise a "missing binary" error, and that
+``--build=missing`` will not build it. If you need all the binaries of the graph, for example to deploy them or to
+collect their license files, you can use ``-c tools.graph:skip_binaries=False``.
+
+See :ref:`skipped binaries<reference_binary_model_skipped_binaries>` for a full explanation.
+
+
 .. _error_invalid_setting:
 
 ERROR: Invalid setting
