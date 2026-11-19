@@ -83,41 +83,46 @@ graph. The rules are:
 - Any binary that is not necessary according to the above rules is skipped.
 
 The propagation of traits is mostly derived from the ``package_type`` of the packages. The
-most common cases are, for a consumer that depends on ``pkga`` that depends on ``pkgb``:
+most common cases are summarized below, for a ``consumer`` that depends on a ``direct-dep`` package, which in turn
+depends on a ``transitive-dep`` package:
+
+.. code-block:: text
+
+    consumer -> direct-dep -> transitive-dep
 
 .. list-table::
    :header-rows: 1
 
-   * - ``pkga`` package type
-     - ``pkgb`` package type
-     - ``pkgb`` binary
+   * - ``direct-dep`` package type
+     - ``transitive-dep`` package type
+     - ``transitive-dep`` binary
      - Reason
    * - ``shared-library`` or ``application``
      - ``static-library`` or ``header-library``
      - Skipped
-     - ``pkgb`` has been embedded (linked) inside ``pkga``, it is no longer needed.
+     - ``transitive-dep`` has been embedded (linked) inside ``direct-dep``, it is no longer needed.
    * - ``static-library``
      - ``header-library``
      - Skipped
-     - The headers have been compiled into ``pkga`` library, and they are not propagated, unless
+     - The headers have been compiled into the ``direct-dep`` library, and they are not propagated, unless
        ``transitive_headers=True``.
    * - ``static-library``
      - ``static-library``
      - Necessary
-     - The consumer needs to link both ``pkga`` and ``pkgb`` static libraries (the ``libs`` trait is
+     - The consumer needs to link both ``direct-dep`` and ``transitive-dep`` static libraries (the ``libs`` trait is
        propagated).
    * - any
      - ``shared-library``
      - Necessary
-     - The ``pkgb`` shared library is needed at runtime (the ``run`` trait is propagated), and also
-       for linking if ``pkga`` is a static library.
+     - The ``transitive-dep`` shared library is needed at runtime (the ``run`` trait is propagated), and also
+       for linking if ``direct-dep`` is a static library.
    * - ``header-library``
      - any
      - Necessary
-     - A header-only library doesn't embed anything, the consumer needs everything that ``pkgb`` provides.
+     - A header-only library doesn't embed anything, the consumer needs everything that ``transitive-dep`` provides.
 
-Also, the ``tool_requires`` and ``test_requires`` of ``pkga`` and ``pkgb`` are only necessary if
-``pkga`` or ``pkgb`` respectively are going to be built from source. Otherwise, they are skipped.
+Also, the ``tool_requires`` and ``test_requires`` of ``direct-dep`` and ``transitive-dep`` are only necessary if
+``direct-dep`` or ``transitive-dep`` respectively are going to be built from source. Otherwise, they are skipped.
 
 Note that this is very much aligned with the "embed" and "non-embed" modes explained in
 :ref:`the effect of dependencies on package_id<reference_binary_model_dependencies>`. When a package binary
