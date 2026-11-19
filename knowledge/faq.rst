@@ -88,7 +88,8 @@ and the ``tool_requires`` and ``test_requires`` of a package are only necessary 
 
 This also means that a missing binary that is skipped will not raise a "missing binary" error, and that
 ``--build=missing`` will not build it. If you need all the binaries of the graph, for example to deploy them or to
-collect their license files, you can use ``-c tools.graph:skip_binaries=False``.
+collect their license files, you can use ``-c tools.graph:skip_binaries=False`` (or ``-c:a`` to also include
+the binaries of the "build" context, like the ``tool_requires``).
 
 See :ref:`skipped binaries<reference_binary_model_skipped_binaries>` for a full explanation.
 

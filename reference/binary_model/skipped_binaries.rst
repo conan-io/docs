@@ -82,54 +82,27 @@ graph. The rules are:
   along the way, the transitive dependency binary is skipped.
 - Any binary that is not necessary according to the above rules is skipped.
 
-The propagation of traits is mostly derived from the ``package_type`` of the packages. The
-most common cases are summarized below, for a ``consumer`` that depends on a ``direct-dep`` package, which in turn
-depends on a ``transitive-dep`` package:
+The propagation of traits is derived from the ``package_type`` of the packages, and it follows the same
+"embed" and "non-embed" cases explained in
+:ref:`the effect of dependencies on package_id<reference_binary_model_dependencies>`. For a ``consumer``
+that depends on a ``direct-dep`` package, which in turn depends on a ``transitive-dep`` package:
 
 .. code-block:: text
 
     consumer -> direct-dep -> transitive-dep
 
-.. list-table::
-   :header-rows: 1
-
-   * - ``direct-dep`` package type
-     - ``transitive-dep`` package type
-     - ``transitive-dep`` binary
-     - Reason
-   * - ``shared-library`` or ``application``
-     - ``static-library`` or ``header-library``
-     - Skipped
-     - ``transitive-dep`` has been embedded (linked) inside ``direct-dep``, it is no longer needed.
-   * - ``static-library``
-     - ``header-library``
-     - Skipped
-     - The headers have been compiled into the ``direct-dep`` library, and they are not propagated, unless
-       ``transitive_headers=True``.
-   * - ``static-library``
-     - ``static-library``
-     - Necessary
-     - The consumer needs to link both ``direct-dep`` and ``transitive-dep`` static libraries (the ``libs`` trait is
-       propagated).
-   * - any
-     - ``shared-library``
-     - Necessary
-     - The ``transitive-dep`` shared library is needed at runtime (the ``run`` trait is propagated), and also
-       for linking if ``direct-dep`` is a static library.
-   * - ``header-library``
-     - any
-     - Necessary
-     - A header-only library doesn't embed anything, the consumer needs everything that ``transitive-dep`` provides.
-
-Also, the ``tool_requires`` and ``test_requires`` of ``direct-dep`` and ``transitive-dep`` are only necessary if
-``direct-dep`` or ``transitive-dep`` respectively are going to be built from source. Otherwise, they are skipped.
-
-Note that this is very much aligned with the "embed" and "non-embed" modes explained in
-:ref:`the effect of dependencies on package_id<reference_binary_model_dependencies>`. When a package binary
-**embeds** a dependency (for example a shared library linking a static library), the dependency
-artifacts are already contained inside the consumer binary. That is the reason why the consumer
-needs a new ``package_id`` for every change of the dependency (``full_mode`` by default), and it is also
-the reason why the dependency binary can be skipped when using the consumer binary.
+- **Embed mode**: if ``direct-dep`` embeds ``transitive-dep`` (for example, a shared library or an application
+  linking a static library, or a static library compiling a header-only library), the ``transitive-dep`` artifacts
+  are already contained inside the ``direct-dep`` binary, so the ``transitive-dep`` binary is skipped. This is the
+  same reason why ``direct-dep`` needs a new ``package_id`` for every change of ``transitive-dep`` (``full_mode``
+  by default).
+- **Non-embed mode**: if ``direct-dep`` doesn't embed ``transitive-dep`` (for example, any library linking a shared
+  library, or a static library linking another static library), the ``consumer`` will still need the
+  ``transitive-dep`` binary, to link it or to run it, so it is not skipped.
+- If ``direct-dep`` is a **header-only** library, it doesn't embed anything, so the ``transitive-dep`` binary is
+  necessary.
+- The ``tool_requires`` and ``test_requires`` of ``direct-dep`` and ``transitive-dep`` are only necessary if
+  ``direct-dep`` or ``transitive-dep`` respectively are going to be built from source. Otherwise, they are skipped.
 
 The traits can be modified explicitly in the ``requires()`` calls, like ``transitive_headers=True`` or
 ``transitive_libs=True``, and that will also change which binaries are necessary. See the
@@ -203,14 +176,19 @@ There are a few mechanisms to modify the default behavior:
 
   .. code-block:: bash
 
+      # Only the "host" context binaries, "tool_requires" binaries can still be skipped
       $ conan install --requires=app/0.1 -c tools.graph:skip_binaries=False
+      # All binaries, both in the "host" and "build" contexts
+      $ conan install --requires=app/0.1 -c:a tools.graph:skip_binaries=False
+
+  .. important::
+
+      The ``-c`` argument only applies to the "host" context. To also avoid skipping the binaries of the
+      "build" context, like the ``tool_requires`` and their dependencies, use ``-c:a`` (all contexts) or ``-c:b``,
+      or define it in the ``[conf]`` section of the build profile.
 
   It can also be defined per-package using :ref:`conf patterns<reference_config_files_global_conf_patterns>`,
   to avoid skipping only some specific packages binaries, like ``-c "zlib/*:tools.graph:skip_binaries=False"``.
-
-  Note that ``-c`` only applies to the "host" context. To also avoid skipping the binaries of the
-  "build" context, like the ``tool_requires``, it is necessary to define it for the build context too,
-  with ``-c:b`` or ``-c:a`` (for all contexts), or in the ``[conf]`` section of the build profile.
 
   If a package that would have been built only because of ``--build=missing`` defines
   ``tools.graph:skip_binaries=False``, it will be built (and its dependencies binaries will be necessary),
