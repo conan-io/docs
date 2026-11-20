@@ -56,6 +56,10 @@ Be aware that if the profile already exists you have to use ``--force`` to overw
     ...
     Saving detected profile to /Users/carlosz/.conan2/profiles/default
 
+(Experimental) On Linux, ``conan profile detect`` also defines the :ref:`os.libc and os.libc.version<reference_config_files_settings_yml_libc>`
+settings from the system C library (``glibc`` or ``musl``). If the detected version is not defined in *settings.yml*,
+only ``os.libc`` is defined, and a warning is shown.
+
 .. note::
 
     **Best practices**

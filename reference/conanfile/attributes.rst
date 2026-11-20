@@ -253,9 +253,10 @@ extension_properties
 The ``extensions_properties`` attribute is a dictionary intended to define and pass information from the
 recipes to the Conan extensions.
 
-At the moment, the only defined properties are ``compatibility_cppstd`` and ``compatibility_cstd``, that allows disabling the behavior
+At the moment, the defined properties are ``compatibility_cppstd``, ``compatibility_cstd`` and ``compatibility_libc``, that allow disabling the behavior
 of :ref:`the default compatibility.py extension <reference_extensions_binary_compatibility>`, that considers 
-binaries built with different ``compiler.cppstd`` and ``compiler.cstd`` values ABI-compatible among them. 
+binaries built with different ``compiler.cppstd`` and ``compiler.cstd`` values, or with older ``os.libc.version`` values,
+ABI-compatible among them.
 To disable this behavior for the current package, it is possible to do it with:
 
 .. code-block:: python
@@ -272,6 +273,15 @@ method:
 
       def compatibility(self):
           self.extension_properties = {"compatibility_cppstd": False}
+
+(Experimental) From Conan 2.34, the ``compatibility_libc`` property is also defined. It disables the fallback of the default
+``compatibility.py`` to binaries built against older ``os.libc.version`` values, or without ``os.libc``
+defined:
+
+.. code-block:: python
+
+  class Pkg(ConanFile):
+      extension_properties = {"compatibility_libc": False}
 
 
 .. note::

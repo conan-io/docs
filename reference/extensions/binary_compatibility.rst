@@ -38,6 +38,45 @@ recipe the ``extension_properties = {"compatibility_cppstd": False}`` attribute,
 From Conan 2.4, the ``compiler.cstd`` setting is available. It will only be taken into account in the computation of
 packages ``package_id`` when their recipes explicitly declare the ``languages = "C"`` attribute.
 
+.. include:: ../../common/experimental_warning.inc
+
+From Conan 2.34, the default ``compatibility.py`` also implements binary compatibility for the
+:ref:`os.libc and os.libc.version settings<reference_config_files_settings_yml_libc>`. A binary linked against
+an older libc version can run with a newer version of the same libc, so if a binary for the
+given ``os.libc.version`` doesn't exist, Conan will check, in this order:
+
+- The binaries for older ``os.libc.version`` values of the same ``os.libc``, closest version first.
+- The binaries that define ``os.libc`` but not ``os.libc.version``.
+- The binaries that do not define ``os.libc`` at all, for example binaries created before this setting existed.
+
+If the profile does not define ``os.libc.version``, the libc version of the consumer is unknown, and Conan
+will check the most portable binaries first:
+
+- If ``os.libc`` is not defined, ``glibc`` is assumed: the binaries for all ``glibc`` versions, oldest version
+  first, then the binaries that define ``os.libc=glibc`` but not ``os.libc.version``. This allows profiles
+  without these settings, for example profiles created before this setting existed, to use binaries that
+  define them.
+- If ``os.libc`` is defined: the binaries for all versions of the same ``os.libc``, oldest version first, then the
+  binaries that do not define ``os.libc``.
+
+Binaries for a different ``os.libc`` (``glibc`` and ``musl``) are never considered compatible.
+
+The fallbacks between binaries and profiles with and without these settings allow using existing binaries, but
+these binaries might require a newer libc than the current one. They can be disabled with the
+``tools.graph:compatibility_libc_unset=False`` configuration, globally or per package:
+
+.. code-block:: text
+    :caption: *profile*
+
+    [conf]
+    # For all packages
+    tools.graph:compatibility_libc_unset=False
+    # Only for the zlib package
+    zlib/*:tools.graph:compatibility_libc_unset=False
+
+It is possible to disable all the libc fallbacks for any specific package, adding to the package ``conanfile.py``
+recipe the ``extension_properties = {"compatibility_libc": False}`` attribute.
+
 There are some cases where the default ``compatibility.py`` will not be enough, and users will need to
 customize it to their needs. Some rules and tips for that customization are explained below.
 
