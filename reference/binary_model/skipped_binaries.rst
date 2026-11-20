@@ -29,7 +29,7 @@ Let's use the following dependency graph as an example:
 Installing the ``app/0.1`` application, assuming that all the binaries have already been created:
 
 .. code-block:: text
-    :emphasize-lines: 6-9
+    :emphasize-lines: 8-11
 
     $ conan install --requires=app/0.1
     ...
