@@ -102,6 +102,21 @@ Using std::cpp 2025
 .. youtube:: sTqbfdiOSUY
 
 
+.. _cppcon2024_cps:
+
+CppCon 2024
+-----------
+
+`"Common Package Specification (CPS) in Practice: Working Implementation in Conan C++ Package Manager"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    A talk about the ideas of a standard package specification and an early implementation in Conan,
+    including the round trip with CMake. Note that it is not strictly about the current CPS
+    specification, which has evolved since then. See the :ref:`CPS integration<integrations_cps>`
+    documentation.
+
+.. youtube:: pFQHQEm98Ho
+
 .. _using_stdcpp2024:
 .. _cppcon2024:
 
@@ -141,6 +156,21 @@ CppCon 2022
     and how they have been used to create the new major version of Conan.
 
 .. youtube:: NM-xp3tob2Q
+
+.. _cppcon2023_build_tools:
+
+CppCon 2023
+-----------
+
+`"Getting Build Tools to Talk to Each Other: Lessons Learned"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    A talk about the challenges of making package managers and build systems interoperate, and the
+    lessons learned. It was presented before the Common Package Specification (CPS) was
+    standardized, but it is closely related to its motivation. See the
+    :ref:`CPS integration<integrations_cps>` documentation.
+
+.. youtube:: ZTjG8fy6Bek
 
 .. _meeting_cpp2023:
 
