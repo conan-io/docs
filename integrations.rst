@@ -24,6 +24,7 @@ Xcode.
    integrations/meson
    integrations/emscripten
    integrations/premake
+   integrations/cps
    integrations/android
    integrations/jfrog
    integrations/ros
