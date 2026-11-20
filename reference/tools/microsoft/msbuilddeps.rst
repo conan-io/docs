@@ -187,3 +187,26 @@ Reference
 
 .. autoclass:: MSBuildDeps
     :members:
+
+.. _CMakeDeps Properties:
+
+Properties
+^^^^^^^^^^
+
+The following properties affect the MSBuildDeps generator:
+
+- **msbuild_import_props**: List of property sheets (``.props`` files) that are automatically included by the
+ generated ``conan_pkgname_compname_release_x64.props`` files. This allows recipes to inject additional properties into
+ MSBuild. Paths must be relative to the package folder. Please note they are included for each configuration.
+
+Example:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        # Automatically include the lib/MyProps.props file when projects import this library into MSBuild
+        self.cpp_info.set_property("msbuild_import_props", [os.path.join("lib", "MyProps.props")])
+
+        # Include lib/Special.props only for "mycomponent"
+        self.cpp_info.components["mycomponent"].set_property("msbuild_import_props", [os.path.join("lib", "Special.props")])
