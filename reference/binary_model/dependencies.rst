@@ -22,6 +22,13 @@ When the package types are not known (the recipes do not define the ``shared`` o
 
 - **Unknown mode**: This mode is generally not recommended, as it is the result of not having enough information about the package types, and it results in a excesively optimistic ``package_id`` computation with a ``semver`` approach for binary rebuilds, which is generally insufficient for C and C++ libraries. The recommendation is to clear specify the ``shared`` option or to explicitly define ``package_type``.
 
+.. seealso::
+
+    The same package types and traits that define the embed and non-embed modes also define which dependencies
+    binaries are actually necessary. For example, when an application or a shared library embeds a static library,
+    the binary of that static library is no longer needed to use the application or the shared library, and Conan
+    will not download it, marking it as ``Skip``. See :ref:`skipped binaries<reference_binary_model_skipped_binaries>`.
+
 
 Non-embed mode
 --------------
@@ -177,6 +184,11 @@ Now we will have two ``app/0.1`` different binaries:
 We will have these two different binaries, one of them linking with the first revision of the ``dep/0.1`` dependency (with the "Hello World" message), and the other binary with the other ``package_id`` linked with the second revision of the ``dep/0.1`` dependency (with the "Hello Moon" message).
 
 The above described mode is called ``full_mode``, and it is the default for the ``embed_mode``.
+
+Note that as the ``app/0.1`` binary already contains the ``dep/0.1`` static library, installing the ``app/0.1``
+binary doesn't require the ``dep/0.1`` binary at all, so Conan will skip it (it is listed as a
+"Skipped host binaries" in the output), and it will not download it. See
+:ref:`skipped binaries<reference_binary_model_skipped_binaries>` for more information.
 
 
 Package types and default modes

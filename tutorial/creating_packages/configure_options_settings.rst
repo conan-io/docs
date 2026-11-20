@@ -238,6 +238,11 @@ As you can see, the first run created the ``2a899fd0da3125064bf9328b8db681cd8289
 package, and the second one, regardless of the different value of the fPIC option, said we
 already had the ``2a899fd0da3125064bf9328b8db681cd82899d56`` package installed.
 
+Note also that the ``fmt`` dependency is marked as ``Skip`` in the second run. The ``fmt`` static library
+has already been linked inside the ``hello`` shared library, so its binary is not necessary to use ``hello``,
+and Conan doesn't need to download or install it. See :ref:`skipped binaries<reference_binary_model_skipped_binaries>`
+for more information.
+
 C libraries
 ^^^^^^^^^^^
 

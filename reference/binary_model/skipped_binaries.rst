@@ -1,0 +1,205 @@
+.. _reference_binary_model_skipped_binaries:
+
+Skipped binaries
+================
+
+Conan always computes the complete dependency graph: every recipe of every dependency is resolved,
+loaded and evaluated, and every node gets its ``package_id`` computed. But computing the graph doesn't
+mean that all the package binaries in that graph are necessary. Very often, a large part of
+the dependencies binaries are not needed at all for the current command, and Conan avoids downloading,
+building or installing them. These binaries are marked as **skipped** (``Skip``).
+
+Skipping binaries is the default behavior, it is a deliberate optimization that can save a lot of
+download time, disk space and build time, and it is also one of the reasons why the graph
+:ref:`package types and requirement traits<reference_conanfile_methods_requirements>` are so important.
+
+This section explains when and why Conan skips binaries, how to recognize it and how to change
+this behavior when needed.
+
+
+Recognizing skipped binaries
+----------------------------
+
+Let's use the following dependency graph as an example:
+
+- ``app/0.1`` is an ``application`` that ``requires("openssl/0.1")``
+- ``openssl/0.1`` is a ``shared-library`` that ``requires("zlib/0.1")``
+- ``zlib/0.1`` is a ``static-library`` that has a ``tool_requires("tool/0.1")`` (some build tool)
+
+Installing the ``app/0.1`` application, assuming that all the binaries have already been created:
+
+.. code-block:: text
+    :emphasize-lines: 8-11
+
+    $ conan install --requires=app/0.1
+    ...
+    ======== Computing necessary packages ========
+    Requirements
+        app/0.1#f285...:cba9...#c921... - Cache
+        openssl/0.1#b66c...:43fa...#0789... - Cache
+    Build requirements
+    Skipped host binaries
+        zlib/0.1
+    Skipped build binaries
+        tool/0.1
+
+The "Computing necessary packages" step lists the binaries that are actually going to be used, and
+then, in separate ``Skipped host binaries``, ``Skipped test binaries`` and ``Skipped build binaries`` sections,
+the packages whose binaries are not necessary. In this case:
+
+- The ``zlib`` static library has been linked into the ``openssl`` shared library. Using ``openssl``
+  doesn't require the ``zlib`` binary at all, neither to build ``app`` nor to run it.
+- The ``tool/0.1`` was only necessary to build ``zlib``. As ``zlib`` is not being built from source,
+  there is no need for the ``tool/0.1`` binary at all.
+
+Skipped binaries are also visible in other places:
+
+- ``conan graph info`` shows ``binary: Skip`` for those nodes, and in its
+  :ref:`json output<reference_commands_graph_info_json_format>` the ``"binary"`` field of the node will be
+  ``"Skip"``. The requirement edges in the json output also contain a ``"skip"`` field.
+- In recipes, generators and deployers, the dependencies whose binaries are skipped still
+  exist in ``self.dependencies``, but their ``package_folder`` is ``None``
+  (see :ref:`the dependencies reference<reference_conanfile_methods_generate>`). Their
+  ``package_info()`` method is not evaluated either.
+- ``conan graph build-order`` doesn't include skipped binaries.
+
+
+When is a binary necessary?
+---------------------------
+
+Conan computes which binaries are necessary starting from the consumer (the ``conanfile`` being installed, or
+the ``--requires`` given in the command line) and from the packages that are going to be built from source,
+and following the requirement traits (``headers``, ``libs``, ``run``, ``build``) that are propagated through the
+graph. The rules are:
+
+- The **direct dependencies of the consumer** are always necessary, including its ``tool_requires`` and
+  ``test_requires``.
+- A **package that is going to be built from source** needs the binaries of all its direct dependencies,
+  including its ``tool_requires`` and ``test_requires``.
+- A **transitive dependency** binary is necessary only if some of its "files" are needed by
+  a node that needs it, that is, if the requirement propagated to that node through the graph still has some of
+  the ``headers``, ``libs``, ``run`` or ``build`` traits enabled. If all of them have been dropped
+  along the way, the transitive dependency binary is skipped.
+- Any binary that is not necessary according to the above rules is skipped.
+
+The propagation of traits is derived from the ``package_type`` of the packages, and it follows the same
+"embed" and "non-embed" cases explained in
+:ref:`the effect of dependencies on package_id<reference_binary_model_dependencies>`. For a ``consumer``
+that depends on a ``direct-dep`` package, which in turn depends on a ``transitive-dep`` package:
+
+.. code-block:: text
+
+    consumer -> direct-dep -> transitive-dep
+
+- **Embed mode**: if ``direct-dep`` embeds ``transitive-dep`` (for example, a shared library or an application
+  linking a static library, or a static library compiling a header-only library), the ``transitive-dep`` artifacts
+  are already contained inside the ``direct-dep`` binary, so the ``transitive-dep`` binary is skipped. This is the
+  same reason why ``direct-dep`` needs a new ``package_id`` for every change of ``transitive-dep`` (``full_mode``
+  by default).
+- **Non-embed mode**: if ``direct-dep`` doesn't embed ``transitive-dep`` (for example, any library linking a shared
+  library, or a static library linking another static library), the ``consumer`` will still need the
+  ``transitive-dep`` binary, to link it or to run it, so it is not skipped.
+- If ``direct-dep`` is a **header-only** library, it doesn't embed anything, so the ``transitive-dep`` binary is
+  necessary.
+- The ``tool_requires`` and ``test_requires`` of ``direct-dep`` and ``transitive-dep`` are only necessary if
+  ``direct-dep`` or ``transitive-dep`` respectively are going to be built from source. Otherwise, they are skipped.
+
+The traits can be modified explicitly in the ``requires()`` calls, like ``transitive_headers=True`` or
+``transitive_libs=True``, and that will also change which binaries are necessary. See the
+:ref:`requirement traits reference<reference_conanfile_methods_requirements>`.
+
+.. important::
+
+    The correct definition of ``package_type`` (explicitly, or implicitly via the ``shared`` option)
+    is critical for this behavior. If the package types are unknown, Conan cannot know if a dependency
+    has been embedded or not, and will be conservative, propagating the traits and requiring
+    more binaries than necessary.
+
+
+Skipped binaries and build modes
+--------------------------------
+
+The skipping of binaries happens after Conan has decided which binaries exist and which need to be built,
+and it has some implications that are worth knowing:
+
+- **A missing binary that is skipped is not an error**. In the example above, if the ``zlib/0.1`` binary
+  doesn't exist in the cache or in any remote, ``conan install --requires=app/0.1`` will still succeed, because
+  that binary is not needed. Only the binaries that are necessary will raise a "missing binary" error.
+- **Build missing only builds necessary binaries**. If the ``zlib/0.1`` binary is missing, but
+  ``app`` and ``openssl`` binaries exist, ``conan install --requires=app/0.1 --build=missing`` will not build
+  ``zlib`` from source, it will be skipped. The same applies to ``--build=missing:[pattern]``.
+- **Forced builds always build**. Packages explicitly forced to be built with ``--build="pkg/*"`` (or
+  ``--build="*"``) are always built, even if their binaries wouldn't be necessary otherwise. As they are
+  built, their dependencies binaries become necessary too. In the example above,
+  ``conan install --requires=app/0.1 --build="openssl/*" --build=missing`` will build ``openssl``, and as it needs
+  ``zlib`` to link, ``zlib`` will also be built if its binary is missing, and ``tool/0.1`` will no longer be skipped,
+  as it is needed to build ``zlib``.
+
+.. code-block:: text
+
+    $ conan install --requires=app/0.1 --build="openssl/*" --build=missing
+    ...
+    Requirements
+        app/0.1#f285...:cba9...#c921... - Cache
+        openssl/0.1#b66c...:43fa... - Build
+        zlib/0.1#f6a2...:dcf6... - Build
+    Build requirements
+        tool/0.1#6cb7...:dcf6...#e018... - Cache
+
+
+Note that the recipes of skipped packages are still necessary: they are downloaded (if not in the cache) and
+evaluated to compute the dependency graph and the ``package_id`` of their consumers. Skipping is
+only about the package binaries. Skipped packages are still part of the dependency graph, so they will also be
+captured in lockfiles, and listed by ``conan graph info``.
+
+The ``tools.graph:skip_build`` and ``tools.graph:skip_test`` confs are a different thing: they make Conan not
+expand ``tool_requires`` and ``test_requires`` at all, so not even their recipes are part of the graph.
+In most cases they are not necessary, as Conan will already skip those binaries when they are not needed.
+See :ref:`the build_requirements() reference<reference_conanfile_methods_build_requirements>`.
+
+
+Disabling the skipping of binaries
+----------------------------------
+
+The default behavior should be good for the vast majority of cases, but there are some situations in which
+all the binaries of the graph are needed, for example:
+
+- Deploying all the dependencies binaries with a :ref:`deployer<reference_extensions_deployers>`, including
+  the ones that have been embedded in other binaries.
+- Collecting information that is only available in the package binaries of the whole graph, like licenses files.
+- Populating a cache or a server with all the binaries of a dependency graph, or building all of them.
+
+There are a few mechanisms to modify the default behavior:
+
+- The ``tools.graph:skip_binaries`` conf, ``True`` by default. Defining it as ``False`` will make all
+  binaries necessary:
+
+  .. code-block:: bash
+
+      # Only the "host" context binaries, "tool_requires" binaries can still be skipped
+      $ conan install --requires=app/0.1 -c tools.graph:skip_binaries=False
+      # All binaries, both in the "host" and "build" contexts
+      $ conan install --requires=app/0.1 -c:a tools.graph:skip_binaries=False
+
+  .. important::
+
+      The ``-c`` argument only applies to the "host" context. To also avoid skipping the binaries of the
+      "build" context, like the ``tool_requires`` and their dependencies, use ``-c:a`` (all contexts) or ``-c:b``,
+      or define it in the ``[conf]`` section of the build profile.
+
+  It can also be defined per-package using :ref:`conf patterns<reference_config_files_global_conf_patterns>`,
+  to avoid skipping only some specific packages binaries, like ``-c "zlib/*:tools.graph:skip_binaries=False"``.
+
+  If a package that would have been built only because of ``--build=missing`` defines
+  ``tools.graph:skip_binaries=False``, it will be built (and its dependencies binaries will be necessary),
+  even if its binary would have been skipped otherwise.
+
+- The :ref:`no_skip=True requirement trait<reference_conanfile_methods_requirements_no_skip>`, defined in
+  a recipe ``requires()``, forces the dependency binary to be necessary whenever the consumer binary is necessary.
+  This should only be used in exceptional cases.
+
+- If a dependency always needs to be available at runtime for all of its consumers, for example a
+  ``static-library`` package that also contains some shared libraries, the
+  :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` attribute can be used in that
+  dependency recipe to define ``"run": True``, so the ``run`` trait is propagated downstream and its binary will not
+  be skipped.

@@ -37,7 +37,7 @@ Now, let's compute the build-order for ``mapviewer/1.0``:
     $ conan graph build-order --requires=mapviewer/1.0 --build=missing --order-by=recipe -s build_type=Debug --format=json > mapviewer_debug.json
 
 
-Note that in the generated ``mapviewer_xxx.json`` build-order files, there will be only 1 element for ``mapviewer/1.0`` that contains a ``binary: Download``, because there is really no other package to be built, and as ``mapviewer`` is an application linked statically, Conan knows that it can "skip" its dependencies binaries. If we had used the ``--reduce`` argument we would have obtained an empty ``order``. But this is not an issue, as the next final step will really compute what needs to be built.
+Note that in the generated ``mapviewer_xxx.json`` build-order files, there will be only 1 element for ``mapviewer/1.0`` that contains a ``binary: Download``, because there is really no other package to be built, and as ``mapviewer`` is an application linked statically, Conan knows that it can :ref:`"skip" its dependencies binaries<reference_binary_model_skipped_binaries>`. If we had used the ``--reduce`` argument we would have obtained an empty ``order``. But this is not an issue, as the next final step will really compute what needs to be built.
 
 Let's take all the 4 different "build-order" files (2 products x 2 configurations each), and merge them together:
 

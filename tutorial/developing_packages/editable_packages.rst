@@ -249,5 +249,5 @@ requirement will get it from the cache again.
     (``self.dependencies["say"].package_folder``), points to the local project root folder, where there is no actual "package".
     Recipes, generators and deployers should use ``cpp_info`` to locate the artifacts, which works transparently
     for editable and cache packages. Note that ``package_folder`` can also be ``None`` for other dependencies, when
-    the binary is skipped because it is not necessary. See the :ref:`dependencies reference<reference_conanfile_methods_generate>`
+    the binary is :ref:`skipped because it is not necessary<reference_binary_model_skipped_binaries>`. See the :ref:`dependencies reference<reference_conanfile_methods_generate>`
     and the :ref:`full_deploy deployer<reference_extensions_deployer_full_deploy>` for more information.

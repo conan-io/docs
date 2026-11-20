@@ -179,6 +179,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 
   - When the dependency binary is skipped because it is not necessary (for example, a static library that is a transitive
     dependency of a shared library). The binary is not even downloaded from the server, so there is no folder to point to.
+    See :ref:`skipped binaries<reference_binary_model_skipped_binaries>`.
   - It is **not** ``None`` for packages in :ref:`editable mode<editable_packages>`. In that case it points to the
     local project root folder (where the ``conanfile.py`` of the editable package is). Note that there is no actual "package" there:
     the files are not laid out as in a package, and the folder can contain sources, build files and any other project file.
