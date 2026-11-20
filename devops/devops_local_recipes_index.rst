@@ -18,6 +18,26 @@ This setup is particularly useful for:
   :ref:`setup_local_recipes_index`.
 
 
+.. warning:: 
+
+    Using the ``local-recipes-index`` feature from a fork of ``conan-center-index`` Github repository,
+    without using a package server or relying on the ConanCenter package server can easily result in
+    missing dependencies due to old versions being removed by upstream ``conan-center-index``. The
+    recommendations are:
+
+    - Use a package server to store your recipes and binaries built from your fork, and use it to resolve
+      dependencies.
+    - If not using a package server, at least consider adding ``conancenter`` as remote besides your
+      ``local-recipes-index``, possibly with the ``recipes-only`` argument enabled, to be able to fetch
+      those older versions removed from the source from it.
+    - If you are not using a server, then it becomes necessary to move forward with the ``local-recipes-index``
+      source repository. If a version is removed, the requirements to that old version must be updated to
+      existing versions.
+    - Another alternative is managing your fork accordingly, to avoid removals, not merging from upstream,
+      applying only selective patches.
+
+    
+
 Building Binaries from a private `conan-center-index` fork
 ----------------------------------------------------------
 
@@ -229,8 +249,9 @@ Several important points should be considered when using this new feature:
   packages for regular use.
 
 - Also, note that a server remote can retain a history of changes storing multiple recipe
-  revisions. In contrast, a `local-recipes-index` remote can only represent a single
-  snapshot at any given time. 
+  versions and revisions. In contrast, a `local-recipes-index` remote can only represent a single
+  snapshot at any given time. That means that it will be impossible to use or resolve to older
+  recipe revisions or to old versions that have been removed from the source repository.
 
 - ConanCenter does not use ``python-requires``, as this is a mechanism more intended for
   first-party packages. Using ``python-requires`` in a ``local-recipes-index`` repository
